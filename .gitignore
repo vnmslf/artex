@@ -41,7 +41,7 @@ upload
 .bash_history
 .composer/
 .cache/
-/bitrix/
+!/bitrix/templates/
 .sass-cache
 *.css.map
 .htaccess.restore
