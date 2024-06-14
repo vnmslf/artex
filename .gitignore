@@ -37,8 +37,8 @@ sitemap*.xml
 /.idea
 /upload/
 upload
-/bitrix/
-!/bitrix/templates/
+bitrix/
+!bitrix/templates/
 .bash_history
 .composer/
 .cache/
