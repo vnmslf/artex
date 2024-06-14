@@ -1,0 +1,1 @@
+<a class="dark_link" href="mailto:sales@gk-artex.ru">sales@gk-artex.ru</a>
