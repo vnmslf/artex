@@ -37,11 +37,11 @@ sitemap*.xml
 /.idea
 /upload/
 upload
-/bitrix
+/bitrix/
+!/bitrix/templates/
 .bash_history
 .composer/
 .cache/
-!/bitrix/templates/
 .sass-cache
 *.css.map
 .htaccess.restore
