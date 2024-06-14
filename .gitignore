@@ -35,11 +35,11 @@ maillog
 sitemap.xml
 sitemap*.xml
 /.idea
+.bash_history
 /upload/
 upload
 bitrix/
 !bitrix/templates/
-.bash_history
 .composer/
 .cache/
 .sass-cache
