@@ -16,6 +16,11 @@ if(
 
 $bShowSKU = $arParams['TYPE_SKU'] !== 'TYPE_2';
 
+if ($arResult['DISPLAY_PROPERTIES']['DEMO_URL']['VALUE']) {
+	$arProp = $arResult['DISPLAY_PROPERTIES']['DEMO_URL'];
+	$arResult['DISPLAY_PROPERTIES']['DEMO_URL']['DISPLAY_VALUE'] = '<a rel="nofollow noopener" href="'.$arProp["VALUE"].'" target="_blank">'.$arProp["VALUE"].'</a>';
+}
+
 /* get sku tree props */
 if ($bShowSKU) {
 	$obSKU = new TSolution\SKU($arParams);

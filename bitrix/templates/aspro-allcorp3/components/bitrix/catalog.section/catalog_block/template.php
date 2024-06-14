@@ -418,6 +418,7 @@
 										'SHOW_COUNTER' => false,
 										'CATALOG_IBLOCK_ID' => $arItem['IBLOCK_ID'],
 										'ITEM_ID' => $arItem['ID'],
+										'ASK_FORM_ID' => $arParams['ASK_FORM_ID'],
 									];?>
 									<div class="line-block__item catalog-block__info-bottom--margined <?=(!$bBottomButtons ? 'catalog-block__info-btn' : '');?> <?=($arCurrentOffer ? 'hide-600' : '');?>">
 										<div class="js-replace-btns js-config-btns" data-btn-config='<?=str_replace('\'', '"', CUtil::PhpToJSObject($arBtnConfig, false, true))?>'>

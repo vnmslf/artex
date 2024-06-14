@@ -16,9 +16,22 @@ $(document).ready(function () {
 
   // dropdown-select change item
   $(document).on("click", ".dropdown-select__list .mixitup-item", function () {
-    var $select = $(this).closest('.dropdown-select');
-    $select.find('.dropdown-select__title span').text($(this).text());
-    $select.find('.dropdown-select__title.opened').click();
+    var $select = $(this).closest(".dropdown-select");
+
+    $select.find(".dropdown-select__list-link").removeClass("dropdown-select__list-link--current");
+    $(this).find(".dropdown-select__list-link").addClass("dropdown-select__list-link--current");
+
+    $select.find(".dropdown-select__title span").text($(this).text());
+    $select.find(".dropdown-select__title.opened").click();
+
+    const eventData = {
+      type: "change",
+      payload: {
+        item: $(this),
+      },
+    };
+    BX.onCustomEvent("onChangeOptionSelect", [eventData]);
+
   });
 
   // close select
@@ -26,9 +39,10 @@ $(document).ready(function () {
     if (typeof e.target.className == "string" && e.target.className.indexOf("adm") < 0) {
       e.stopPropagation();
 
-      $(".dropdown-select .dropdown-select__title.opened").each(function(){
-        var $select = $(this).closest('.dropdown-select');
-        if(!$(e.target).closest($select).length) { 
+      $(".dropdown-select .dropdown-select__title.opened").each(function () {
+        var $select = $(this).closest(".dropdown-select");
+        if (!$(e.target).closest($select).length) {
+
           $(this).click();
         }
       });
@@ -136,14 +150,12 @@ $(document).on("click", ".gallery-view_switch__icons:not(.active)", function () 
   var animationTime = 200;
   var bSmall = $this.hasClass("gallery-view_switch__icons--small");
   var $switchGallery = $this.closest(".gallery-view_switch");
-  var $bigGallery = ($this.closest(".big_gallery").length
-    ? $this.closest(".big_gallery")
-    : $this.closest(".gallery")
+  var $bigGallery = (
+    $this.closest(".big_gallery").length ? $this.closest(".big_gallery") : $this.closest(".gallery")
   ).find(".gallery-big");
   var $bigGalleryCounter = $switchGallery.find(".gallery-view_switch__count-wrapper--big");
-  var $smallGallery = ($this.closest(".big_gallery").length
-    ? $this.closest(".big_gallery")
-    : $this.closest(".gallery")
+  var $smallGallery = (
+    $this.closest(".big_gallery").length ? $this.closest(".big_gallery") : $this.closest(".gallery")
   ).find(".gallery-small");
   var $smallGalleryCounter = $switchGallery.find(".gallery-view_switch__count-wrapper--small");
   var $toHideGallery = bSmall ? $bigGallery : $smallGallery;
@@ -162,6 +174,7 @@ $(document).on("click", ".gallery-view_switch__icons:not(.active)", function () 
     $toShowGallery.fadeIn(animationTime);
   });
 });
+
 /*buy opt table items*/
 function optBuyBasketAction(basketItems, itemsToNotice) {
   const basketParams = {

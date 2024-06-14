@@ -100,6 +100,7 @@ $bShowCompareUpMobileMenu = $currentMobileMenuOptions['TOGGLE_OPTIONS']['OPTIONS
 $bShowCartUpMobileMenu = $currentMobileMenuOptions['TOGGLE_OPTIONS']['OPTIONS']['MOBILE_MENU_TOGGLE_CART']['ADDITIONAL_OPTIONS']['MOBILE_MENU_TOGGLE_CART_UP']['VALUE'] == 'Y';
 $bShowButtonMobileMenu = $currentMobileMenuOptions['TOGGLE_OPTIONS']['OPTIONS']['MOBILE_MENU_TOGGLE_BUTTON']['VALUE'] == 'Y';
 $bShowThemeSelectorMobileMenu = $currentMobileMenuOptions['TOGGLE_OPTIONS']['OPTIONS']['MOBILE_MENU_TOGGLE_THEME_SELECTOR']['VALUE'] == 'Y';
+$bShowWidgetMobileMenu = $currentMobileMenuOptions['TOGGLE_OPTIONS']['OPTIONS']['MOBILE_MENU_TOGGLE_WIDGET']['VALUE'] == 'Y';
 
 $topBlockColor = strtolower($arTheme['TOP_MENU_COLOR']['VALUE']);
 $mainBlockColor = strtolower($arTheme['MENU_COLOR']['VALUE']);

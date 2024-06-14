@@ -5,6 +5,10 @@
   margin-top: 43px;
   position: relative;
 }
+
+.contact-link_block {
+  margin-top: 0px;
+}
 .contacts-list .contacts-list__section:first-child {
   margin-top: 0;
 }

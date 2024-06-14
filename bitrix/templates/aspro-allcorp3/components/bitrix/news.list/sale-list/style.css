@@ -122,13 +122,13 @@ body .sale-list__item-text-wrapper--BOTTOM .dark_link,
   color: #333;
   vertical-align: top;
   height: 27px;
-  margin-right: 7px;
   font-size: 12px;
   line-height: 20px;
 }
 .sale-list__item-sticker {
   position: absolute;
-  font-size: 0px;
+  display: inline-flex;
+  gap: 7px;
   line-height: 0px;
   z-index: 2;
 }

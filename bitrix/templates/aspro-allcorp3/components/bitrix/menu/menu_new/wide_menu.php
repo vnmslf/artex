@@ -38,7 +38,10 @@ $liClass .= ' header-menu__dropdown-item--img-'.$arTheme['IMAGES_WIDE_MENU_POSIT
 				<div class="header-menu__dropdown-item-img-inner">
                     <a href="<?=$arSubItem["LINK"]?>">
                         <?if($bIcon):?>
-                            <?=CAllcorp3::showIconSvg(' fill-theme', $arImg['src']);?>
+                            <?$arOptions['PATH'] = $arImg['src']?>
+                            <?$arItem["PICTURE"]["TITLE"] = $arSubItem['TEXT'];?>
+							<?$arItem["PICTURE"]["ALT"] = $arSubItem['TEXT'];?>
+							<?=CAllcorp3::showSectionSvg($arOptions, $bIcon, $arItem);?>
                         <?else:?>
                             <img src="<?=$arImg["src"]?>" alt="<?=$arSubItem["TEXT"]?>" title="<?=$arSubItem["TEXT"]?>" />
                         <?endif;?>

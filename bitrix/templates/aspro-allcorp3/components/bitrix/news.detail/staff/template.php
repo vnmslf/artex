@@ -18,7 +18,8 @@ $templateData = array_filter([
 	'REVIEWS' => [
 		'IBLOCK_ID' => $arResult['DISPLAY_PROPERTIES']['LINK_REVIEWS']['LINK_IBLOCK_ID'],
 		'VALUE' => $arResult['DISPLAY_PROPERTIES']['LINK_REVIEWS']['VALUE'],
-	]
+	],
+	'CONTACTS' => TSolution\Functions::getCrossLinkedItems($arResult, array('LINK_CONTACT'), array('LINK_STAFF'), $arParams),	
 ]);
 
 ?>

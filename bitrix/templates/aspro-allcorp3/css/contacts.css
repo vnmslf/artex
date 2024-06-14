@@ -42,13 +42,11 @@
   z-index: 1;
 }
 .contacts__sticky-panel .contacts__sticky-panel__image .contact-property--address .contact-property__label {
-  color: #fff;
   margin: 0 0 6px 0;
 }
 .contacts__sticky-panel .contacts__sticky-panel__image .contact-property--address .contact-property__value {
   font-size: 1.2em;
   line-height: calc(1em + 7px);
-  color: #fff;
 }
 .contacts__sticky-panel__info {
   padding: 25px 0 0 0;

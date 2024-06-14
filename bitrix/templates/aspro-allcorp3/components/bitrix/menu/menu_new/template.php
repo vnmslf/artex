@@ -23,7 +23,7 @@ $bRightPart = $arTheme['SHOW_RIGHT_SIDE']['VALUE'] == 'Y';
 				?>
 				<div class="header-menu__item unvisible   <?=($counter == 1 ? "header-menu__item--first" : "")?> <?=($counter == count($arResult) ? "header-menu__item--last" : "")?> <?=($bShowChilds ? "header-menu__item--dropdown" : "")?><?=($bWideMenu ? " header-menu__item--wide" : "")?><?=($arItem["SELECTED"] ? " active" : "")?>">
 					<a class="header-menu__link light-opacity-hover fill-theme-hover menu-light-text banner-light-text dark_link" href="<?=$arItem["LINK"]?>"<?=$arItem['ATTRIBUTE']?>>
-						<span class="header-menu__title">
+						<span class="header-menu__title font_12">
 							<?=$arItem["TEXT"]?>
 						</span>
 						<?if($bShowChilds):?>

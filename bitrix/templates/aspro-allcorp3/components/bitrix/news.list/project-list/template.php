@@ -187,13 +187,13 @@
 								<div class="project-list__item-additional-text">
 									<?// section?>
 									<?if($bShowSection):?>
-										<div class="project-list__item-section project-list__item-section--FON font_13 project-list__item-text--color-<?= $bDarkText ? 'dark-opacity' : 'light-opacity'; ?>">
+										<div class="project-list__item-section project-list__item-section--FON font_13 <?= $bDarkText ? 'color_dark--opacity' : 'color_light--opacity'; ?>">
 											<?=$arResult['SECTIONS'][$arItem['IBLOCK_SECTION_ID']]['NAME'];?>
 										</div>
 									<?endif;?>
 
 									<div class="project-list__item-title switcher-title font_<?=$arParams['NAME_SIZE']?>">
-										<a class="project-list__item-text--color-<?=$bDarkText ? 'dark' : 'light';?>" href="<?=$arItem['DETAIL_PAGE_URL']?>">
+									<a class="<?=$bDarkText ? 'color_dark' : 'color_light';?>" href="<?=$arItem['DETAIL_PAGE_URL']?>">
 											<?=$arItem['NAME'];?>
 										</a>
 									</div>	
@@ -219,13 +219,13 @@
 										<!-- noindex -->
 										<?// section?>
 										<?if($bShowSection):?>
-											<div class="project-list__item-section project-list__item-section--FON font_13 project-list__item-text--color-<?=$bDarkText ? 'dark-opacity' : 'light-opacity';?>">
+											<div class="project-list__item-section project-list__item-section--FON font_13 <?=$bDarkText ? 'color_dark--opacity' : 'color_light--opacity ';?>">
 												<?=$arResult['SECTIONS'][$arItem['IBLOCK_SECTION_ID']]['NAME'];?>
 											</div>
 										<?endif;?>
 
 										<div class="project-list__item-title switcher-title font_<?=$arParams['NAME_SIZE']?>">
-											<a class="project-list__item-text--color-<?=$bDarkText ? 'dark' : 'light';?><?=!$bViewType1 ? ' linecamp-2' : '';?>" href="<?=$arItem['DETAIL_PAGE_URL']?>">
+										<a class="<?=$bDarkText ? 'color_dark' : 'color_light';?><?=!$bViewType1 ? ' linecamp-2' : '';?>" href="<?=$arItem['DETAIL_PAGE_URL']?>">
 												<?=$arItem['NAME'];?>
 											</a>
 										</div>

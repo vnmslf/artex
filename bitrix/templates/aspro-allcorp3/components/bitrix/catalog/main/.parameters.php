@@ -725,12 +725,6 @@ $arTemplateParameters["SECTION_TOP_BLOCK_TITLE"] = array(
 	"PARENT" => "TOP_SETTINGS",
 );
 
-$arTemplateParameters["SHOW_ASK_BLOCK"] = array(
-	"NAME" => GetMessage("SHOW_ASK_BLOCK"),
-	"TYPE" => "CHECKBOX",
-	"DEFAULT" => "Y",
-	"PARENT" => "DETAIL_SETTINGS",
-);
 
 $arTemplateParameters["ASK_FORM_ID"] = array(
 	"NAME" => GetMessage("ASK_FORM_ID"),

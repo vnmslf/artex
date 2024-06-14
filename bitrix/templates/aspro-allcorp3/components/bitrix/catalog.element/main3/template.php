@@ -656,6 +656,7 @@ $templateData['VIDEO'] = boolval($arResult['VIDEO']);
 						'DISPLAY_COMPARE' => $arParams['DISPLAY_COMPARE'],
 						'CATALOG_IBLOCK_ID' => $arResult['IBLOCK_ID'],
 						'ITEM_ID' => $arResult['ID'],
+						'ASK_FORM_ID' => $arParams['ASK_FORM_ID'],
 					];?>
 					<div class="catalog-detail__cart js-replace-btns js-config-btns" data-btn-config='<?=str_replace('\'', '"', CUtil::PhpToJSObject($arBtnConfig, false, true))?>'>
 						<?=TSolution\Functions::showBasketButton(

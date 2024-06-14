@@ -56,10 +56,10 @@ global $arTheme;
 				$this->AddDeleteAction($arSection['SECTION']['ID'], $arSectionButtons['edit']['delete_section']['ACTION_URL'], CIBlock::GetArrayByID($arSection['SECTION']['IBLOCK_ID'], 'SECTION_DELETE'), array('CONFIRM' => GetMessage('CT_BNL_ELEMENT_DELETE_CONFIRM')));
 			}
 			?>
-			<div id="<?=$areaSectionId?>" class="contacts-list__section">
+			<div id="<?=$areaSectionId?>" class="contacts-list__section <?=$arParams['LINK_POSITION_BLOCK'] == 'Y' ? 'contact-link_block' : ''?>">
 				<?if($bHasSection):?>
 					<div class="contacts-list__section-content">
-						<?if($arParams['SHOW_SECTION_NAME'] != 'N'):?>
+						<?if($arParams['SHOW_SECTION_NAME'] != 'N' && $arParams['LINK_POSITION_BLOCK'] != 'Y'):?>
 							<?if(strlen($arSection['SECTION']['NAME'])):?>
 								<div class="contacts-list__section-title switcher-title font_22 color_333">
 									<?=$arSection['SECTION']['NAME']?>

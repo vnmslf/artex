@@ -9,6 +9,7 @@ $bUseFeedback = CAllcorp3::GetFrontParametrValue('CONTACTS_USE_FEEDBACK', SITE_I
 	"bitrix:news.detail",
 	"contacts-item",
 	Array(
+		"T_STAFF" => $arParams["T_STAFF"],
 		"DISPLAY_DATE" => $arParams["DISPLAY_DATE"],
 		"DISPLAY_NAME" => $arParams["DISPLAY_NAME"],
 		"DISPLAY_PICTURE" => $arParams["DISPLAY_PICTURE"],
@@ -51,6 +52,7 @@ $bUseFeedback = CAllcorp3::GetFrontParametrValue('CONTACTS_USE_FEEDBACK', SITE_I
 		"SHARE_HANDLERS" 		=> $arParams["SHARE_HANDLERS"],
 		"SHARE_SHORTEN_URL_LOGIN"	=> $arParams["SHARE_SHORTEN_URL_LOGIN"],
 		"SHARE_SHORTEN_URL_KEY" => $arParams["SHARE_SHORTEN_URL_KEY"],
+		"DETAIL_BLOCKS_ORDER" => "staff",
 		"USE_MAP" => $bUseMap ? 'Y' : 'N',
 		"TYPE_MAP" => $typeMap,
 		"USE_FEEDBACK" => $bUseFeedback ? 'Y' : 'N',

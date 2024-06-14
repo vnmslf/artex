@@ -20,6 +20,11 @@ $address = $arResult['NAME'].($arResult['PROPERTIES']['ADDRESS']['VALUE'] ? ', '
 
 $arPhotos = array();
 $imageID = ($arResult['FIELDS']['DETAIL_PICTURE']['ID'] ? $arResult['FIELDS']['DETAIL_PICTURE']['ID'] : false);
+
+$templateData = array_filter([
+    'STAFF' => TSolution\Functions::getCrossLinkedItems($arResult, array('LINK_STAFF'), array('LINK_CONTACT'), $arParams),	
+]);
+
 if($imageID){
     $arImage = CFile::ResizeImageGet($imageID, array('width' => 600, 'height' => 600), BX_RESIZE_IMAGE_PROPORTIONAL);
     $arPhotos[] = array(
@@ -111,6 +116,12 @@ if(is_array($arResult['DISPLAY_PROPERTIES']['MORE_PHOTOS']['VALUE'])) {
     }
     ?>
 <?endif;?>
+<?
+$templateData['MAP']["PLACEMARKS"] = $arPlacemarks;
+$templateData['MAP']["mapLAT"] = $mapLAT;
+$templateData['MAP']["mapLON"] = $mapLON;
+?>
+
 <div class="contacts-detail shop-detail" itemscope itemtype="http://schema.org/Organization">
 	<?//hidden text for validate microdata?>
 	<div class="hidden">
@@ -254,72 +265,4 @@ if(is_array($arResult['DISPLAY_PROPERTIES']['MORE_PHOTOS']['VALUE'])) {
 					<?endif;?>
 				</div>
 			</div>
-		</div>
-        <?if($bUseMap):?>
-            <div class="contacts__map-wrapper">
-                <div class="sticky-block contacts_map-sticky rounded-4 bordered">
-                    <?if($typeMap == 'GOOGLE'):?>
-                        <?$APPLICATION->IncludeComponent(
-                            "bitrix:map.google.view",
-                            "map",
-                            array(
-                                "API_KEY" => \Bitrix\Main\Config\Option::get('fileman', 'google_map_api_key', ''),
-                                "INIT_MAP_TYPE" => "ROADMAP",
-                                "COMPONENT_TEMPLATE" => "map",
-                                "COMPOSITE_FRAME_MODE" => "A",
-                                "COMPOSITE_FRAME_TYPE" => "AUTO",
-                                "CONTROLS" => array(
-                                    0 => "SMALL_ZOOM_CONTROL",
-                                    1 => "TYPECONTROL",
-                                ),
-                                "OPTIONS" => array(
-                                    0 => "ENABLE_DBLCLICK_ZOOM",
-                                    1 => "ENABLE_DRAGGING",
-                                ),
-                                "MAP_DATA" => serialize(array("google_lat" => $mapLAT, "google_lon" => $mapLON, "google_scale" => 17, "PLACEMARKS" => $arPlacemarks)),
-                                "MAP_HEIGHT" => "550px",
-                                "MAP_WIDTH" => "100%",
-                                "MAP_ID" => "",
-                                "ZOOM_BLOCK" => array(
-                                    "POSITION" => "right center",
-                                )
-                            ),
-                            false
-                        );?>
-                    <?else:?>
-                        <?$APPLICATION->IncludeComponent(
-                            "bitrix:map.yandex.view",
-                            "map",
-                            array(
-                                "API_KEY" => \Bitrix\Main\Config\Option::get('fileman', 'yandex_map_api_key', ''),
-                                "INIT_MAP_TYPE" => "MAP",
-                                "COMPONENT_TEMPLATE" => "map",
-                                "COMPOSITE_FRAME_MODE" => "A",
-                                "COMPOSITE_FRAME_TYPE" => "AUTO",
-                                "CONTROLS" => array(
-                                    0 => "ZOOM",
-                                    1 => "SMALLZOOM",
-                                    2 => "TYPECONTROL",
-                                ),
-                                "OPTIONS" => array(
-                                    0 => "ENABLE_DBLCLICK_ZOOM",
-                                    1 => "ENABLE_DRAGGING",
-                                ),
-                                "MAP_DATA" => serialize(array("yandex_lat" => $mapLAT, "yandex_lon" => $mapLON, "yandex_scale" => 17, "PLACEMARKS" => $arPlacemarks)),
-                                "MAP_HEIGHT" => "550px",
-                                "MAP_WIDTH" => "100%",
-                                "MAP_ID" => "",
-                                "ZOOM_BLOCK" => array(
-                                    "POSITION" => "right center",
-                                )
-                            ),
-                            false
-                        );?>
-                    <?endif;?>
-                </div>
-            </div>
-        <?endif;?>
-	</div>
-
-    
-</div>
+            

@@ -7,6 +7,8 @@ if ($arParams['SHOW_PROPS'] == 'Y') {
 	$arParams['SHOW_GALLERY'] = 'N';
 }
 
+
+
 if (!empty($arResult['ITEMS'])) {
 	/* get sku tree props */
 	if ($bShowSKU) {
@@ -73,6 +75,11 @@ if (!empty($arResult['ITEMS'])) {
 				}
 			}
 			$arItem['SHOW_PROPERTIES'] = TSolution::PrepareItemProps($arItem['DISPLAY_PROPERTIES']);
+		}
+
+		if ($arItem['SHOW_PROPERTIES']['DEMO_URL']) {
+			$arProp = $arItem['SHOW_PROPERTIES']['DEMO_URL'];
+			$arItem['SHOW_PROPERTIES']['DEMO_URL']['DISPLAY_VALUE'] = '<a rel="nofollow noopener" href="'.$arProp["VALUE"].'" target="_blank">'.$arProp["VALUE"].'</a>';
 		}
 
 		if ($arItem['IBLOCK_SECTION_ID'] && $arParams['SHOW_SECTION'] == 'Y') {

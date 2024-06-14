@@ -11,6 +11,7 @@
 		"T_REVIEWS" => $arParams["T_REVIEWS"],
 		"T_GOODS" => $arParams["T_GOODS"],
 		"T_COMMENTS" => $arParams["T_COMMENTS"],
+		"T_CONTACTS" => $arParams["T_CONTACTS"],
 		"DETAIL_USE_COMMENTS" => $arParams["DETAIL_USE_COMMENTS"],
 		"DETAIL_BLOG_USE" => $arParams["DETAIL_BLOG_USE"],
 		"DETAIL_BLOG_URL" => $arParams["DETAIL_BLOG_URL"],
@@ -77,6 +78,7 @@
 		"SHARE_HANDLERS" => $arParams["SHARE_HANDLERS"],
 		"SHARE_SHORTEN_URL_LOGIN" => $arParams["SHARE_SHORTEN_URL_LOGIN"],
 		"SHARE_SHORTEN_URL_KEY" => $arParams["SHARE_SHORTEN_URL_KEY"],
+		"DETAIL_BLOCKS_ORDER" => ($arParams["DETAIL_BLOCKS_ORDER"] ? $arParams["DETAIL_BLOCKS_ORDER"] : "services,projects,docs,reviews,goods,comments,contacts"),
 	),
 	$component
 ); ?>

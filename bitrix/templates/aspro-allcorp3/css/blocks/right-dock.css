@@ -3,7 +3,8 @@
 }
 .right-sidebar-wrapper {
   position: absolute;
-  right: -1px;
+  left: -63px;
+  right: auto;
   width: 63px;
   background-color: #fff;
   background-color: var(--card_bg_black);
@@ -68,10 +69,37 @@
 }
 .ajax_basket .fixed_wrapper {
   position: fixed;
+  width: 580px;
+  right: -581px;
+  display: block !important;
   top: 0px;
-  right: 0px;
-  z-index: 102;
+  background: #fff;
+  background: var(--card_bg_black);
+  z-index: 996;
+  transition: right ease-in-out 0.3s;
+  -moz-transition: right ease-in-out 0.3s;
+  -ms-transition: right ease-in-out 0.3s;
+  -o-transition: right ease-in-out 0.3s;
+  -webkit-transition: right ease-in-out 0.3s;
+  margin: 0px;
+  height: 100%;
 }
+.ajax_basket .fixed_wrapper.narrow {
+  position: fixed;
+  display: block !important;
+  width: 400px;
+  right: -401px;
+  top: 0px;
+  background: #fff;
+  background: var(--card_bg_black);
+  z-index: 996;
+  transition: right ease-in-out 0.3s;
+  -moz-transition: right ease-in-out 0.3s;
+  -ms-transition: right ease-in-out 0.3s;
+  -o-transition: right ease-in-out 0.3s;
+  -webkit-transition: right ease-in-out 0.3s;
+}
+
 
 @media (min-height: 601px) {
   .right-sidebar-wrapper {

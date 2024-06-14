@@ -102,6 +102,12 @@ if(
 if($arResult['DISPLAY_PROPERTIES']){
 	$arResult['CHARACTERISTICS'] = CAllcorp3::PrepareItemProps($arResult['DISPLAY_PROPERTIES']);
 
+	if ($arResult['CHARACTERISTICS']) {
+		\Bitrix\Main\Type\Collection::sortByColumn($arResult['CHARACTERISTICS'],[
+			'SORT' => array(SORT_NUMERIC, SORT_ASC)
+		]);
+	}
+	
 	foreach($arResult['DISPLAY_PROPERTIES'] as $PCODE => $arProp){
 		if(
 			$arProp["VALUE"] ||

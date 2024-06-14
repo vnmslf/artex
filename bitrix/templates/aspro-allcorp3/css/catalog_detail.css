@@ -61,6 +61,9 @@
   margin-left: -6px;
   margin-right: -6px;
 }
+.buy_block + .info-buttons {
+  margin-top: 10px;
+}
 .catalog-detail__cart .buttons + .info-buttons > .info-buttons__item {
   margin-top: 12px;
   margin-right: 6px;

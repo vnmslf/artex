@@ -327,6 +327,9 @@ body.fill_bg_y.visible_banner.header_fill_colored.title-v5 .full-fill .logo-row 
   height: 100%;
   padding-top: 123px;
 }
+.widget_open .wrap {
+  padding-top: 0 !important;
+}
 .basket.fly > .wrap .basket_wrap {
   height: 100%;
   padding-bottom: 181px;

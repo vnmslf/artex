@@ -143,7 +143,6 @@
 				"PROPERTIES_DISPLAY_TYPE" => $arParams["PROPERTIES_DISPLAY_TYPE"],
 				"VISIBLE_PROP_COUNT" => $arParams["VISIBLE_PROP_COUNT"],
 				"SHOW_ADDITIONAL_TAB" => $arParams["SHOW_ADDITIONAL_TAB"],
-				"SHOW_ASK_BLOCK" => $arParams["SHOW_ASK_BLOCK"],
 				"ASK_FORM_ID" => $arParams["ASK_FORM_ID"],
 				"SHOW_MEASURE" => $arParams["SHOW_MEASURE"],
 				"SHOW_HINTS" => $arParams["SHOW_HINTS"],
@@ -232,6 +231,7 @@
 				"SHOW_ONE_CLINK_BUY" => $arParams["SHOW_ONE_CLINK_BUY"],
 				'SHOW_SKU_DESCRIPTION' => $arParams['SHOW_SKU_DESCRIPTION'],
 				"REPLACE_NOIMAGE_WITH_SECTION_PICTURE" => TSolution::GetFrontParametrValue('REPLACE_NOIMAGE_WITH_SECTION_PICTURE') === 'Y',
+				"ASK_FORM_ID" => trim($arParams["ASK_FORM_ID"]),
 			),
 			$component
 		); ?>

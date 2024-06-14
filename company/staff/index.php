@@ -135,7 +135,7 @@ $APPLICATION->SetTitle("Сотрудники");
 		"T_GOODS" => "",
 		"T_COMMENTS" => "",
 		"DETAIL_USE_COMMENTS" => "N",
-		"DETAIL_BLOCKS_ORDER" => "services,projects,docs,reviews,goods,comments",
+		"DETAIL_BLOCKS_ORDER" => "services,projects,docs,reviews,goods,comments,contacts",
 		"DETAIL_DISPLAY_TOP_PAGER" => "N",
 		"DETAIL_DISPLAY_BOTTOM_PAGER" => "Y",
 		"DETAIL_PAGER_TITLE" => "Страница",

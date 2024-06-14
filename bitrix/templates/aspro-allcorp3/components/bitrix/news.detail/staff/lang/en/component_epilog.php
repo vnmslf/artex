@@ -10,4 +10,5 @@ $MESS["EPILOG_BLOCK__REVIEWS"] = "Reviews";
 $MESS["EPILOG_BLOCK__SERVICES"] = "Services";
 $MESS["EPILOG_BLOCK__TARIF"] = "Tariffs";
 $MESS["EPILOG_BLOCK__VIDEO"] = "Video";
+$MESS["EPILOG_BLOCK__CONTACTS"] = "Contacts";
 ?>
