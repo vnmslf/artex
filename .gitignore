@@ -38,8 +38,8 @@ sitemap*.xml
 .bash_history
 /upload/
 upload
-bitrix/
 !bitrix/templates/
+bitrix/*
 .composer/
 .cache/
 .sass-cache
