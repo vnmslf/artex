@@ -1,64 +1,8 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Компания", 
-		"/company/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Каталог", 
-		"/product/", 
-		Array(), 
-		Array("WIDE_MENU"=>"Y"), 
-		"" 
-	),
-	Array(
-		"Услуги", 
-		"/services/", 
-		Array(), 
-		Array("WIDE_MENU"=>"Y"), 
-		"" 
-	),
-	Array(
-		"Акции", 
-		"/sales/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Проекты", 
-		"/projects/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Тарифы", 
-		"/tariffs/", 
-		Array(), 
-		Array(), 
-		"CAllcorp3::GetFrontParametrValue('TARIFFS_USE_DETAIL') == 'Y'" 
-	),
-	Array(
 		"Новости", 
 		"/news/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Галерея", 
-		"/gallery/", 
-		Array(), 
-		Array(), 
-		"" 
-	),
-	Array(
-		"Цены", 
-		"/price/", 
 		Array(), 
 		Array(), 
 		"" 
@@ -71,18 +15,11 @@ $aMenuLinks = Array(
 		"" 
 	),
 	Array(
-		"Информация", 
-		"/info/", 
+		"О компании", 
+		"/company/", 
 		Array(), 
 		Array(), 
 		"" 
 	),
-	Array(
-		"Контакты", 
-		"/contacts/", 
-		Array(), 
-		Array(), 
-		"" 
-	)
 );
 ?>

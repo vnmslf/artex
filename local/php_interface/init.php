@@ -515,3 +515,52 @@ function inclination($time, $arr) {
 		return $arr[2];
 	}
 }
+
+function changeBracket($inputText, $more__photo, $first = '{{', $second = '}}') {
+	$counter = count(explode($first, $inputText)) - 1;
+	for ($i = 0; $i < $counter; $i++) {
+		$parts = explode($first, $inputText);
+		$exp = explode($second, $parts[$i + 1]);
+		$numbers = explode(',', $exp[0]);
+		$picture[$i] = '<div class="pictures">';
+		foreach ($numbers as $key => $value) {
+			$picture[$i] .= '<picture>';
+			foreach ($more__photo[$value] as $keyMedia => $valueMedia) {
+				if($keyMedia !== 'default') {
+					$explode = explode('-', $keyMedia);
+					$start = $explode[0];
+					$end = $explode[1];
+					$picture[$i] .= '<source srcset="'.$more__photo[$value][$keyMedia]['src'].'" media="(min-width: '.$start.'px)'.($end !== 'max' ? ' and (max-width: '.$end.'px)' : '').'" type="image/webp" />';
+				}
+			}
+			$picture[$i] .= '<img srcset="'.$more__photo[$value]['default'].'" alt="'.$arResult['NAME'].'" />
+			</picture>';
+		}
+		$picture[$i] .= '</div>';
+		if (strpos($exp[0], ',') !== false) {
+			$newText = str_replace($first.implode(',', $numbers).$second, $picture[$i], $inputText);
+		}
+	}
+	if(!$newText) {
+		$newText = $inputText;
+		for ($i = 0; $i < $counter; $i++) {
+		$j = $i + 1; 
+			$newText = str_replace($first.$j.$second, $picture[$i], $newText);
+		}
+	}
+	return $newText;
+}
+
+function changeBracketSvg($inputText, $svg, $icon = '{{icon}}') {
+	$counter = count(explode($icon, $inputText)) - 1;
+	$newText = '';
+	$replaceIcon = '
+	<div class="icons">
+		<div class="icon">
+			<img src="'.$svg['SRC'].'" alt="" />
+			<span></span>
+		</div>
+	</div>';
+	$newText = str_replace($icon, $replaceIcon, $inputText);
+	return $newText;
+}

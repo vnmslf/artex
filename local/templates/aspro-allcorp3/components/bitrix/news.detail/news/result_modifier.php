@@ -176,4 +176,68 @@ if ($arResult['SECTION'] && $arResult['SECTION']['PATH']) {
 		}
 	}
 }
+foreach ($arResult['PROPERTIES']['ICONTEXT']['VALUE'] as $key => $value) {
+	$svg = CFile::GetFileArray($value);
+}
+if($arResult['DETAIL_TEXT']) {
+	$arResult['DETAIL_TEXT'] = changeBracketSvg($arResult['DETAIL_TEXT'], $svg);
+}
+$width = [
+	'mobile' => [
+		'start' => '0',
+		'end' => '713',
+	],
+	'md-mobile' => [
+		'start' => '321',
+		'end' => '353',
+	],
+	'lg-mobile' => [
+		'start' => '354',
+		'end' => '414',
+	],
+	'xl-mobile' => [
+		'start' => '415',
+		'end' => '630',
+	],
+	'tablet' => [
+		'start' => '631',
+		'end' => '698',
+	],
+	'md-tablet' => [
+		'start' => '699',
+		'end' => '767',
+	],
+	'lg-tablet' => [
+		'start' => '768',
+		'end' => '779',
+	],
+	'xl-tablet' => [
+		'start' => '780',
+		'end' => '1023',
+	],
+	'desktop' => [
+		'start' => '1024',
+		'end' => '1069',
+	],
+	'md-desktop' => [
+		'start' => '1070',
+		'end' => '1199',
+	],
+	'lg-desktop' => [
+		'start' => '1200',
+		'end' => '1319',
+	],
+	'xl-desktop' => [
+		'start' => '1320',
+		'end' => 'max',
+	],
+];
+$i = 0;
+foreach ($arResult['PROPERTIES']['PHOTOS']['VALUE'] as $key => $value) {
+	$i++;
+	$more__photo[$i] = make_picture_width(CFile::GetFileArray($value), $width);
+}
+if($arResult['DETAIL_TEXT']) {
+	$arResult['DETAIL_TEXT'] = changeBracket($arResult['DETAIL_TEXT'], $more__photo);
+}
 ?>
