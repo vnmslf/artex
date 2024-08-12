@@ -25,7 +25,7 @@ else{
 		"HIT_PROP" => "HIT",
 		"IBLOCK_TYPE"	=>	$arParams["IBLOCK_TYPE"],
 		"IBLOCK_ID"	=>	$arParams["IBLOCK_ID"],
-		"ASK_FORM_ID" => trim($arParams["ASK_FORM_ID"]),
+
 		"DISPLAY_COMPARE"	=>	TSolution::GetFrontParametrValue('CATALOG_COMPARE'),
 
 		"SKU_IBLOCK_ID"	=>	$arParams["SKU_IBLOCK_ID"],

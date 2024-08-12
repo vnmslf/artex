@@ -370,7 +370,6 @@
 										'SHOW_COUNTER' => $bCompactView,
 										'CATALOG_IBLOCK_ID' => $arItem['IBLOCK_ID'],
 										'ITEM_ID' => $arItem['ID'],
-										'ASK_FORM_ID' => $arParams['ASK_FORM_ID'],
 									];?>
 									<div class="js-config-btns hide-600" data-btn-config='<?=str_replace('\'', '"', CUtil::PhpToJSObject($arBtnConfig, false, true))?>'></div>
 									<?=TSolution\Functions::showBasketButton(

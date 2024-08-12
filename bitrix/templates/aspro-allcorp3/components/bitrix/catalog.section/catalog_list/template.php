@@ -350,7 +350,6 @@
 									'DISPLAY_COMPARE' => $arParams['DISPLAY_COMPARE'],
 									'CATALOG_IBLOCK_ID' => $arItem['IBLOCK_ID'],
 									'ITEM_ID' => $arItem['ID'],
-									'ASK_FORM_ID' => $arParams['ASK_FORM_ID'],
 								];?>
 								<div class="js-replace-btns js-config-btns <?=($arCurrentOffer ? 'hide-600' : '');?>" data-btn-config='<?=str_replace('\'', '"', CUtil::PhpToJSObject($arBtnConfig, false, true))?>'>
 									<?=TSolution\Functions::showBasketButton(

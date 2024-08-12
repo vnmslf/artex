@@ -1,3 +1,10 @@
+.project-list__item-text--color-light{
+  color: #fff;
+}
+.project-list__item-text--color-light-opacity{
+  color: #fff;
+  opacity: 0.7;
+}
 .project-list__item-text--color-dark{
   color: #333;
 }

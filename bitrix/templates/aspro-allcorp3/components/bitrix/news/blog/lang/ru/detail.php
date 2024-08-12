@@ -13,7 +13,6 @@ $MESS['T_GOODS'] = 'Товары';
 $MESS['T_NEWS'] = 'Новости';
 $MESS['T_FAQ'] = 'Вопрос/ответ';
 $MESS['T_SERVICES'] = 'Услуги';
-$MESS['T_TARIFFS'] = 'Тарифы';
 $MESS['T_CHARACTERISTICS'] = 'Характеристики';
 $MESS["CATEGORY"] = 'Категории';
 $MESS["T_ALSO_ITEMS"] = "Это интересно";

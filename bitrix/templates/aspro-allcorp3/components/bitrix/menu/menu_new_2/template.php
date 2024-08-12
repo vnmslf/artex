@@ -15,7 +15,7 @@ $sCountElementsMenu = "count_".$arTheme['COUNT_ITEMS_IN_LINE_MENU']['VALUE'];
 				?>
 				<div class="header-menu-view2__item unvisible <?=($bShowChilds ? "header-menu-view2__item--dropdown" : "")?><?=($bWideMenu ? " header-menu-view2__item--wide" : "")?><?=($arItem["SELECTED"] ? " active" : "")?>">
 					<a class="header-menu-view2__link menu-light-text banner-light-text dark_link light-opacity-hover" href="<?=$arItem["LINK"]?>"<?=$arItem['ATTRIBUTE']?>>
-						<div class="header-menu-view2__title font_14">
+						<div class="header-menu-view2__title">
 							<?=$arItem["TEXT"]?>
 						</div>
 					</a>

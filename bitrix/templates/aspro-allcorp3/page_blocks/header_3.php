@@ -166,7 +166,7 @@ if($bMarginHeader) {
 						?>
 						<?=TSolution\Functions::showHeaderBlock($blockOptions);?>
 
-						<?$visible = ($bShowLang || $bCompare || $bCabinet || $bOrder || $bShowThemeSelector);?>
+						<?$visible = ($bShowLang || $bCompare || $bCabinet || $bOrder);?>
 						<?$arShowSites = TSolution\Functions::getShowSites();
 						$countSites = count($arShowSites);?>
 						<?$blockOptions = array(

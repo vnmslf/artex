@@ -81,7 +81,6 @@ ExtComponentParameter::addRelationBlockParameters([
 	ExtComponentParameter::RELATION_BLOCK_REVIEWS,
 	ExtComponentParameter::RELATION_BLOCK_GOODS,
 	ExtComponentParameter::RELATION_BLOCK_COMMENTS,
-	ExtComponentParameter::RELATION_BLOCK_CONTACTS,
 ]);
 
 ExtComponentParameter::addSelectParameter('SKU_IBLOCK_ID', [

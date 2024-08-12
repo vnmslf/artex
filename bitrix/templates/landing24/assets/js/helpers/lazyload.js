@@ -102,10 +102,7 @@
 					const origStyle = BX.data(bg, 'style');
 					let origSrc = BX.data(bg, 'src');
 					// remove unnecessary quotes from src
-					if (origSrc)
-					{
-						origSrc = origSrc.replace(/(^['"])|(['"]$)/g, '');
-					}
+					origSrc = origSrc.replace(/(^['"])|(['"]$)/g, '');
 					let origSrc2x = BX.data(bg, 'src2x');
 					let origSrcset;
 					if (origSrc2x)

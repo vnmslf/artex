@@ -77,11 +77,6 @@ if (!empty($arResult['ITEMS'])) {
 			}
 		}
 
-		if ($arItem['DISPLAY_PROPERTIES']['DEMO_URL']) {
-			$arProp = $arItem['DISPLAY_PROPERTIES']['DEMO_URL'];
-			$arItem['DISPLAY_PROPERTIES']['DEMO_URL']['DISPLAY_VALUE'] = '<a rel="nofollow noopener" href="'.$arProp["VALUE"].'" target="_blank">'.$arProp["VALUE"].'</a>';
-		}
-
 		if (($arItem['DETAIL_PICTURE'] && $arItem['PREVIEW_PICTURE']) || (!$arItem['DETAIL_PICTURE'] && $arItem['PREVIEW_PICTURE'])) {
 			$arItem['DETAIL_PICTURE'] = $arItem['PREVIEW_PICTURE'];
 		}

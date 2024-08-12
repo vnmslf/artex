@@ -60,64 +60,22 @@ ExtComponentParameter::addRelationBlockParameters(array(
 	ExtComponentParameter::RELATION_BLOCK_COMMENTS,
 ));
 
-ExtComponentParameter::addOrderBlockParameters(array(
-	ExtComponentParameter::ORDER_BLOCK_SALE,
-	ExtComponentParameter::ORDER_BLOCK_TABS,
-	ExtComponentParameter::ORDER_BLOCK_GALLERY,
-	ExtComponentParameter::ORDER_BLOCK_SKU,
-	ExtComponentParameter::ORDER_BLOCK_SERVICES,
-	ExtComponentParameter::ORDER_BLOCK_PROJECTS,
-	ExtComponentParameter::ORDER_BLOCK_NEWS,
-	ExtComponentParameter::ORDER_BLOCK_ARTICLES,
-	ExtComponentParameter::ORDER_BLOCK_STAFF,
-	ExtComponentParameter::ORDER_BLOCK_PARTNERS,
-	ExtComponentParameter::ORDER_BLOCK_VACANCY,
-	ExtComponentParameter::ORDER_BLOCK_GOODS,
-	ExtComponentParameter::ORDER_BLOCK_COMMENTS,
-));
-
-ExtComponentParameter::addOrderTabParameters(array(
-	ExtComponentParameter::ORDER_BLOCK_DESC,
-	ExtComponentParameter::ORDER_BLOCK_CHAR,
-	ExtComponentParameter::ORDER_BLOCK_TARIFFS,
-	ExtComponentParameter::ORDER_BLOCK_VIDEO,
-	ExtComponentParameter::ORDER_BLOCK_DOCS,
-	ExtComponentParameter::ORDER_BLOCK_FAQ,
-	ExtComponentParameter::ORDER_BLOCK_REVIEWS,
-	ExtComponentParameter::ORDER_BLOCK_BUY,
-	ExtComponentParameter::ORDER_BLOCK_PAYMENT,
-	ExtComponentParameter::ORDER_BLOCK_DELIVERY,
-	ExtComponentParameter::ORDER_BLOCK_DOPS,
-	ExtComponentParameter::RELATION_BLOCK_COMPLECTS,
-));
-
 ExtComponentParameter::addOrderAllParameters(array(
 	ExtComponentParameter::ORDER_BLOCK_SALE,
+	//ExtComponentParameter::ORDER_BLOCK_TIZERS,
 	ExtComponentParameter::ORDER_BLOCK_DESC,
 	ExtComponentParameter::ORDER_BLOCK_CHAR,
 	ExtComponentParameter::ORDER_BLOCK_REVIEWS,
-	ExtComponentParameter::ORDER_BLOCK_GALLERY,
-	ExtComponentParameter::ORDER_BLOCK_VIDEO,
-	ExtComponentParameter::ORDER_BLOCK_SKU,
-	ExtComponentParameter::ORDER_BLOCK_TARIFFS,
 	ExtComponentParameter::ORDER_BLOCK_SERVICES,
 	ExtComponentParameter::ORDER_BLOCK_PROJECTS,
 	ExtComponentParameter::ORDER_BLOCK_NEWS,
 	ExtComponentParameter::ORDER_BLOCK_ARTICLES,
 	ExtComponentParameter::ORDER_BLOCK_DOCS,
-	ExtComponentParameter::ORDER_BLOCK_STAFF,
 	ExtComponentParameter::ORDER_BLOCK_FAQ,
-	ExtComponentParameter::ORDER_BLOCK_PARTNERS,
-	ExtComponentParameter::ORDER_BLOCK_VACANCY,
 	ExtComponentParameter::ORDER_BLOCK_GOODS,
-	ExtComponentParameter::ORDER_BLOCK_BUY,
-	ExtComponentParameter::ORDER_BLOCK_PAYMENT,
-	ExtComponentParameter::ORDER_BLOCK_DELIVERY,
 	ExtComponentParameter::ORDER_BLOCK_DOPS,
 	ExtComponentParameter::ORDER_BLOCK_COMMENTS,
 ));
-
-ExtComponentParameter::addUseTabParameter('USE_DETAIL_TABS_TARIFFS');
 
 ExtComponentParameter::addCheckBoxParameter('USE_SHARE', [
 	"DEFAULT" => "N"

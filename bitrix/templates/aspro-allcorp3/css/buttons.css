@@ -346,11 +346,9 @@
   );
 }
 .btn.btn-transparent-border:hover,
-.btn.btn-transparent-border:focus,
 .btn.btn-transparent-border:active,
-.btn.btn-transparent-border.active {
+.btn.btn-transparent-border:focus {
   border-color: #9e9e9e;
-  color: #fff;
   background-color: #9e9e9e;
   background-color: hsl(
     var(--theme-base-color-hue),
@@ -363,8 +361,8 @@
     calc(var(--theme-base-color-lightness) + var(--theme-lightness-hover-diff))
   );
 }
-.btn.btn-transparent-border:not(:hover):not(:active) * {
-  fill: currentColor; 
+.btn.btn-transparent-border:not(:hover):not(.active) * {
+  fill: var(--fill_dark_light_white_hover);
 }
 .btn.btn-transparent-border:hover,
 .btn.btn-transparent-border.active {

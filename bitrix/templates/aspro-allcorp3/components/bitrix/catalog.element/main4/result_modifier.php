@@ -13,11 +13,6 @@ if(
 	
 	$arResult['CATEGORY_PATH'] = implode('/', $arCategoryPath);
 }
-
-if ($arResult['DISPLAY_PROPERTIES']['DEMO_URL']['VALUE']) {
-	$arProp = $arResult['DISPLAY_PROPERTIES']['DEMO_URL'];
-	$arResult['DISPLAY_PROPERTIES']['DEMO_URL']['DISPLAY_VALUE'] = '<a rel="nofollow noopener" href="'.$arProp["VALUE"].'" target="_blank">'.$arProp["VALUE"].'</a>';
-}
 /* */
 
 // Event for manupulation arResult depends on properties

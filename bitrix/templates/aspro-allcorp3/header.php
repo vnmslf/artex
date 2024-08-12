@@ -60,7 +60,7 @@ $bIncludedModule = \Bitrix\Main\Loader::includeModule('aspro.allcorp3');
 			</div>
 			<div id="mobilefilter" class="scrollbar-filter"></div>
 
-			<div role="main" class="main banner-auto test">
+			<div role="main" class="main banner-auto">
 				<?if(!$isIndex && !$is404 && !$isForm):?>
 					<?$APPLICATION->ShowViewContent('section_bnr_content');?>
 					<?if($APPLICATION->GetProperty("HIDETITLE")!=='Y'):?>

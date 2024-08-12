@@ -725,6 +725,12 @@ $arTemplateParameters["SECTION_TOP_BLOCK_TITLE"] = array(
 	"PARENT" => "TOP_SETTINGS",
 );
 
+$arTemplateParameters["SHOW_ASK_BLOCK"] = array(
+	"NAME" => GetMessage("SHOW_ASK_BLOCK"),
+	"TYPE" => "CHECKBOX",
+	"DEFAULT" => "Y",
+	"PARENT" => "DETAIL_SETTINGS",
+);
 
 $arTemplateParameters["ASK_FORM_ID"] = array(
 	"NAME" => GetMessage("ASK_FORM_ID"),
@@ -863,7 +869,7 @@ $arTemplateParameters["SALE_STIKER"] = array(
 	"PAREN" => "ADDITIONAL_SETTINGS",
 	"NAME" => GetMessage("SALE_STIKER"),
 	"TYPE" => "LIST",
-	"VALUES" => array_merge(Array("-"=>" "), (array)$arProperty_S),
+	"VALUES" => array_merge(Array("-"=>" "), $arProperty_S),
 	"DEFAULT" => "",
 );
 

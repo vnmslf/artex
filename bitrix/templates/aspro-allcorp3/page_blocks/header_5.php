@@ -226,10 +226,10 @@ $bDropdownSchedule =  in_array('HEADER', $arDropdownSchedule) ? 'Y' : 'N';
 					</div>
 				</div>
 			<?endif;?>
-				<?if ($bCenteredHeader || $bShowLang || $bCompare || $bCabinet || $bOrder || $bShowButton || $bShowThemeSelector) :?>
+				<?if ($bCenteredHeader || $bShowLang || $bCompare || $bCabinet || $bOrder || $bShowButton) :?>
 					<div class="header__flex-part header__flex-part--right <?=$bCenteredHeader ? '' : 'header__flex-part--collapse'?>">
 				<?endif;?>
-						<?$visible = ($bShowLang || $bCompare || $bCabinet || $bOrder || $bShowButton || $bShowThemeSelector);?>
+						<?$visible = ($bShowLang || $bCompare || $bCabinet || $bOrder || $bShowButton);?>
 						<?$arShowSites = TSolution\Functions::getShowSites();
 						$countSites = count($arShowSites);?>
 						<?$blockOptions = array(

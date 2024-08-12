@@ -29,7 +29,7 @@
 		"T_DOPS" => ($arParams["T_DOPS"] ? $arParams["T_DOPS"] : GetMessage("T_DOPS")),
 		"T_MAP" => ($arParams["T_MAP"] ? $arParams["T_MAP"] : GetMessage("T_MAP")),
 		"TAB_DOPS_NAME" => $arParams["TAB_DOPS_NAME"],
-		"FORM_ID_ORDER_SERVISE" => ($arParams["FORM_ID_ORDER_SERVISE"] ? $arParams["FORM_ID_ORDER_SERVISE"] : "aspro_allcorp3_order_services"),
+		"FORM_ID_ORDER_SERVISE" => ($arParams["FORM_ID_ORDER_SERVISE"] ? $arParams["FORM_ID_ORDER_SERVISE"] : "aspro_allcorp3_order_project"),
 		"VISIBLE_PROP_COUNT" => $arParams["VISIBLE_PROP_COUNT"],
 		"DISPLAY_DATE" => $arParams["DISPLAY_DATE"],
 		"DISPLAY_NAME" => $arParams["DISPLAY_NAME"],

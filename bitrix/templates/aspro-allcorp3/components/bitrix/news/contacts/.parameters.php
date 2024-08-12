@@ -23,10 +23,6 @@ ExtComponentParameter::addBaseParameters(array(
 	),
 ));
 
-ExtComponentParameter::addRelationBlockParameters([
-	ExtComponentParameter::RELATION_BLOCK_STAFF,
-]);
-
 ExtComponentParameter::appendTo($arTemplateParameters);
 
 if (strpos($arCurrentValues['SECTIONS_TYPE_VIEW'], 'sections_1') === false) {

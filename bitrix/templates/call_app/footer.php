@@ -13,7 +13,7 @@ $helpUrl = CHTTP::urlAddParams($helpUrl, [
 ]);
 
 ?>
-<script>
+<script type="text/javascript">
 	BX.Helper.init({
 		frameOpenUrl : '<?=CUtil::JSEscape($helpUrl)?>',
 		langId: '<?=LANGUAGE_ID?>'

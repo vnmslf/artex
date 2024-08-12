@@ -278,8 +278,8 @@
 
 /* sale */
 .items-list-inner__item-sticker {
-  display: inline-flex;
-  gap: 7px;
+  font-size: 0px;
+  line-height: 0px;
   z-index: 2;
   margin: 22px 0 0 0;
 }
@@ -291,6 +291,7 @@
   color: #333;
   vertical-align: top;
   height: 27px;
+  margin-right: 7px;
   font-size: 12px;
   line-height: 20px;
 }

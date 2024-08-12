@@ -10,4 +10,3 @@ $MESS['EPILOG_BLOCK__TARIF'] = 'Тарифы';
 $MESS['EPILOG_BLOCK__DESC'] = 'Описание';
 $MESS['EPILOG_BLOCK__REVIEWS'] = 'Отзывы';
 $MESS['EPILOG_BLOCK__COMMENTS'] = 'Комментарии';
-$MESS['EPILOG_BLOCK__CONTACTS'] = 'Контакты';

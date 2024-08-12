@@ -9,6 +9,7 @@ body.jqm-initied .page-top,
 body.jqm-initied .body > div > div,
 body.jqm-initied .body > div > header > div > div,
 body.jqm-initied footer,
+body.jqm-initied .fixed_wrapper,
 body.jqm-initied.wf .wrapper1 > div {
   -webkit-filter: blur(3px);
   filter: blur(3px);

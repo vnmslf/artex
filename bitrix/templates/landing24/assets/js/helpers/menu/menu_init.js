@@ -147,11 +147,7 @@
 			if (!markActiveByLid(selector))
 			{
 				// just mark first
-				const selectorNode = document.querySelector(selector);
-				if (selectorNode)
-				{
-					addActive(selectorNode.querySelector('.nav-item'));
-				}
+				addActive(document.querySelector(selector).querySelector('.nav-item'));
 			}
 		}
 		else
@@ -175,10 +171,7 @@
 		}
 
 		var nav = document.querySelector(selector);
-		if (nav)
-		{
-			var links = [].slice.call(nav.querySelectorAll('.nav-link'));
-		}
+		var links = [].slice.call(nav.querySelectorAll('.nav-link'))
 		if (!!links && links.length)
 		{
 			var pageLinkMatcher = new RegExp("#landing([0-9]+)");
@@ -255,33 +248,19 @@
 	}
 
 	/**
-	 * @param node Node - LI node
-	 */
-	function addOpen(node)
-	{
-		if (node)
-		{
-			node.classList.add('open');
-		}
-	}
-
-	/**
 	 * Remove all .active and sr-only
 	 * @param selector
 	 */
 	function removeAllActive(selector)
 	{
 		var nav = document.querySelector(selector);
-		if (nav)
+		var navItems = [].slice.call(nav.querySelectorAll('.nav-item'));
+		if (!!navItems && navItems.length)
 		{
-			var navItems = [].slice.call(nav.querySelectorAll('.nav-item'));
-			if (!!navItems && navItems.length)
+			navItems.forEach(function (navItem)
 			{
-				navItems.forEach(function (navItem)
-				{
-					removeActive(navItem)
-				});
-			}
+				removeActive(navItem)
+			});
 		}
 	}
 
@@ -293,18 +272,6 @@
 	{
 		node.classList.remove('active');
 		BX.remove(node.querySelector('span.sr-only'));
-	}
-
-	/**
-	 * Remove once .open
-	 * @param node Node - LI node
-	 */
-	function removeOpen(node)
-	{
-		if (node)
-		{
-			node.classList.remove('open');
-		}
 	}
 
 	function addMultilevelToggler(menuMultilevel)
@@ -377,7 +344,6 @@
 		{
 			BX.addClass(subMenu, 'g-menu-sublevel--hide');
 		}
-		removeOpen(parentNavLink.parentElement);
 	}
 
 	function showLevel(parentNavLink)
@@ -388,6 +354,5 @@
 		{
 			BX.removeClass(subMenu, 'g-menu-sublevel--hide');
 		}
-		addOpen(parentNavLink.parentElement);
 	}
 })(window.jQueryLanding || jQuery);

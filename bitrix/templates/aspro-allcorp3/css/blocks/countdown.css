@@ -1,6 +1,7 @@
 .countdown {
   position: relative;
   white-space: nowrap;
+  font-size: 0;
   display: inline-block;
   overflow: hidden;
   color: #333333;
@@ -10,6 +11,7 @@
   display: block;
 }
 .countdown__inner {
+  height: 27px;
   padding-right: 2px;
   background: #fff;
   background: var(--card_bg_black);
@@ -26,11 +28,11 @@
 }
 .countdown__item {
   padding: 5px 3px 0 8px;
-  font-size: 0.8em;
-  line-height: 16px;
+  font-size: 12px;
   width: auto;
   display: inline-block;
   position: relative;
+  line-height: 16px;
   height: 25px;
   font-weight: bold;
 }
@@ -85,6 +87,7 @@
   left: 1px;
 }
 .countdown--icons .countdown__inner {
+  height: 29px;
   background: #fff;
   background: var(--card_bg_black);
 }

@@ -10,7 +10,6 @@
 		"SHOW_CATEGORY" => $arParams['SHOW_CATEGORY'],
 		"DETAIL_USE_TAGS" => $arParams['DETAIL_USE_TAGS'],
 		"T_DESC" => ($arParams["T_DESC"] ? $arParams["T_DESC"] : GetMessage("T_DESC")),
-		"T_TARIFFS" => ($arParams["T_TARIFFS"] ? $arParams["T_TARIFFS"] : GetMessage("T_TARIFFS")),
 		"T_CHAR" => ($arParams["T_CHAR"] ? $arParams["T_CHAR"] : GetMessage("T_CHARACTERISTICS")),
 		"T_DOCS" => ($arParams["T_DOCS"] ? $arParams["T_DOCS"] : GetMessage("T_DOCS")),
 		"T_FAQ" => ($arParams["T_FAQ"] ? $arParams["T_FAQ"] : GetMessage("T_FAQ")),

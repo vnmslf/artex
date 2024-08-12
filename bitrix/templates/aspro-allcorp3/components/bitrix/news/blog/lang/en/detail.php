@@ -16,7 +16,6 @@ $MESS["T_NEWS"] = "News";
 $MESS["T_PROJECTS"] = "Projects";
 $MESS["T_REVIEWS"] = "Reviews";
 $MESS["T_SERVICES"] = "Services";
-$MESS['T_TARIFFS'] = 'Tarrifs';
 $MESS["T_STAFF1"] = "Staff";
 $MESS["T_STAFF2"] = "Staffs";
 $MESS["T_STUDY"] = "Courses";

@@ -201,7 +201,7 @@ if (!funcDefined("initCountdown")) {
               compact: true,
               padZeroes: true,
               layout:
-                '{d<}<span class="days countdown__item">{dn}<div class="text">{dl}</div></span>{d>}<span class="hours countdown__item">{hn}<div class="text">{hl}</div></span><span class="minutes countdown__item">{mn}<div class="text">{ml}</div></span><span class="sec countdown__item">{sn}<div class="text">{sl}</div></span>',
+                '{d<}<span class="days countdown__item">{dn}<div class="text">{dl}</div></span>{d>} <span class="hours countdown__item">{hn}<div class="text">{hl}</div></span> <span class="minutes countdown__item">{mn}<div class="text">{ml}</div></span> <span class="sec countdown__item">{sn}<div class="text">{sl}</div></span>',
               onExpiry: onExpiryCountdown,
             },
             $.countdown.regionalOptions["ru"]
@@ -213,7 +213,7 @@ if (!funcDefined("initCountdown")) {
               format: "dHMS",
               padZeroes: true,
               layout:
-                '{d<}<span class="days countdown__item">{dnn}<div class="text">{dl}</div></span>{d>}<span class="hours countdown__item">{hnn}<div class="text">{hl}</div></span><span class="minutes countdown__item">{mnn}<div class="text">{ml}</div></span><span class="sec countdown__item">{snn}<div class="text">{sl}</div></span>',
+                '{d<}<span class="days countdown__item">{dnn}<div class="text">{dl}</div></span>{d>} <span class="hours countdown__item">{hnn}<div class="text">{hl}</div></span> <span class="minutes countdown__item">{mnn}<div class="text">{ml}</div></span> <span class="sec countdown__item">{snn}<div class="text">{sl}</div></span>',
               onExpiry: onExpiryCountdown,
             },
             $.countdown.regionalOptions["ru"]
@@ -249,7 +249,7 @@ if (!funcDefined("initCountdownTime")) {
             compact: true,
             padZeroes: true,
             layout:
-              '{d<}<span class="days countdown__item">{dn}<div class="text">{dl}</div></span>{d>}<span class="hours countdown__item">{hn}<div class="text">{hl}</div></span><span class="minutes countdown__item">{mn}<div class="text">{ml}</div></span><span class="sec countdown__item">{sn}<div class="text">{sl}</div></span>',
+              '{d<}<span class="days countdown__item">{dn}<div class="text">{dl}</div></span>{d>} <span class="hours countdown__item">{hn}<div class="text">{hl}</div></span> <span class="minutes countdown__item">{mn}<div class="text">{ml}</div></span> <span class="sec countdown__item">{sn}<div class="text">{sl}</div></span>',
             onExpiry: onExpiryCountdownTime,
           },
           $.countdown.regionalOptions["ru"]
@@ -261,7 +261,7 @@ if (!funcDefined("initCountdownTime")) {
           format: "dHMS",
           padZeroes: true,
           layout:
-            '{d<}<span class="days countdown__item">{dnn}<div class="text">{dl}</div></span>{d>}<span class="hours countdown__item">{hnn}<div class="text">{hl}</div></span><span class="minutes countdown__item">{mnn}<div class="text">{ml}</div></span><span class="sec countdown__item">{snn}<div class="text">{sl}</div></span>',
+            '{d<}<span class="days countdown__item">{dnn}<div class="text">{dl}</div></span>{d>} <span class="hours countdown__item">{hnn}<div class="text">{hl}</div></span> <span class="minutes countdown__item">{mnn}<div class="text">{ml}</div></span> <span class="sec countdown__item">{snn}<div class="text">{sl}</div></span>',
           onExpiry: onExpiryCountdownTime,
         },
         $.countdown.regionalOptions["ru"]
@@ -2170,7 +2170,7 @@ $.fn.jqmEx = function () {
 
       // use overlay?
       const modalParams = _this[0].dataset,
-        bNoOverlay = modalParams && modalParams.nooverlay && modalParams.nooverlay === 'Y',
+        bNoOverlay = modalParams && modalParams.noOverlay && modalParams.noOverlay === 'Y',
         bShowSlide = modalParams && modalParams.show_slide && modalParams.show_slide === 'Y',
         bShowOnce = modalParams && modalParams.once && modalParams.once === 'Y';
       
@@ -3489,11 +3489,6 @@ $(document).ready(function () {
         $(".tooltip-link").tooltip("hide");
     }
   });
-
-  $(document).on("click", ".jqmOverlay", function () {
-    HideOverlay();
-  });
-  
   $(".inline-search-block")
     .find("*")
     .on("mousedown", function (e) {

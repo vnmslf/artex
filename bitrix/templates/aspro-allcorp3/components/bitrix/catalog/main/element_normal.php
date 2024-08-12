@@ -67,7 +67,7 @@ $pictureRatio = $pictureRatioTmp ? $pictureRatioTmp : TSolution::GetFrontParamet
 // is need left block or sticky panel?
 $APPLICATION->SetPageProperty('MENU', 'N');
 $bWithStickyBlock = false;
-if((strpos($sViewElementTemplate, 'element_1') !== false) || (strpos($sViewElementTemplate, 'element_5') !== false)){
+if(strpos($sViewElementTemplate, 'element_1') !== false){
 	$bShowLeftBlock = false;
 	$bWithStickyBlock = true;
 } else {

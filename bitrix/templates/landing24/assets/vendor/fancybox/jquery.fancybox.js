@@ -5149,4 +5149,4 @@
 		}, 50);
     });
 
-}( document, window, window.jQueryLanding || window.jQuery || jQuery ));
+}( document, window, window.jQuery || jQuery ));

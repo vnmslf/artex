@@ -20,7 +20,7 @@ $APPLICATION->SetPageProperty('MENU', ($bShowLeftBlock ? 'Y' : 'N' ));
 );?>
 <?$html = ob_get_contents();?>
 <?ob_end_clean();?>
-<?if($html && strpos($_SERVER['REQUEST_URI'], 'PAGEN') === false):?>
+<?if($html):?>
 	<div class="text_before_items">
 		<?=$html;?>
 	</div>
@@ -83,7 +83,7 @@ $isAjax = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_
 </div>
 <?$html = ob_get_contents();?>
 <?ob_end_clean();?>
-<?if(trim($html) && strpos($_SERVER['REQUEST_URI'], 'PAGEN') === false):?>
+<?if(trim($html)):?>
 	<?=$html;?>
 <?endif;?>
 <?unset($html);?>

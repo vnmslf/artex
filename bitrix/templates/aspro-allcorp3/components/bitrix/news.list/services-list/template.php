@@ -259,10 +259,7 @@ $arItems = $bItemsTypeElements ? $arResult['ITEMS'] : $arResult['SECTIONS'];
 									<span class="services-list__item-link <?=($bImgSticky ? 'sticky-block' : '')?>">
 								<?endif;?>
 									<?if($bIcons && $nImageID):?>
-										<?$arOptions['PATH'] = $imageSrc?>
-										<?$arItem["PICTURE"]["TITLE"] = $arItem['NAME'];?>
-										<?$arItem["PICTURE"]["ALT"] = $arItem['NAME'];?>
-										<?=CAllcorp3::showSectionSvg($arOptions, $bIcons, $arItem);?>
+										<?=TSolution::showIconSvg(' fill-theme services-list__item-image-icon', $imageSrc);?>
 									<?else:?>
 										<span class="services-list__item-image rounded-4 <?=$imageClasses?>" style="background-image: url(<?=$imageSrc?>);"></span>
 									<?endif;?>
