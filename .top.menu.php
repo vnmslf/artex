@@ -1,25 +1,32 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		"Новости", 
-		"/news/", 
-		Array(), 
-		Array(), 
-		"" 
+		'Exeed',
+		'/catalog/exeed/',
+		Array(),
+		Array(),
+		''
 	),
 	Array(
-		"Статьи", 
-		"/articles/", 
-		Array(), 
-		Array(), 
-		"" 
+		'Новости',
+		'/news/',
+		Array(),
+		Array(),
+		''
 	),
 	Array(
-		"О компании", 
-		"/company/", 
-		Array(), 
-		Array(), 
-		"" 
+		'Статьи',
+		'/articles/',
+		Array(),
+		Array(),
+		''
+	),
+	Array(
+		'О компании',
+		'/company/',
+		Array(),
+		Array(),
+		''
 	),
 );
 ?>
