@@ -62,7 +62,7 @@ $APPLICATION->SetTitle("Каталог");
 		"ELEMENT_SORT_ORDER2" => "desc",
 		"ELEMENT_TYPE_VIEW" => "FROM_MODULE",
 		"FILE_404" => "",
-		"IBLOCK_ID" => "43",
+		'IBLOCK_ID' => \Dao\App::ib('aspro_allcorp3_catalog')->id(),
 		"IBLOCK_TYPE" => "aspro_allcorp3_catalog",
 		"INCLUDE_SUBSECTIONS" => "Y",
 		"LANDING_IBLOCK_ID" => "44",
