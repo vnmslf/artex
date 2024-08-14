@@ -200,4 +200,12 @@ $arUrlRewrite=array (
     'PATH' => '/news/index.php',
     'SORT' => 100,
   ),
+  25 => 
+  array (
+    'CONDITION' => '#^/auto/#',
+    'RULE' => '',
+    'ID' => 'bitrix:catalog',
+    'PATH' => '/auto/index.php',
+    'SORT' => 100,
+  ),
 );
