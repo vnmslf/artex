@@ -564,3 +564,8 @@ function changeBracketSvg($inputText, $svg, $icon = '{{icon}}') {
 	$newText = str_replace($icon, $replaceIcon, $inputText);
 	return $newText;
 }
+function createCode($name) {
+	$params = array('replace_space' => '-', 'replace_other' => '-');
+	$trans = Cutil::translit($name, 'ru', $params);
+	return $trans;
+}
