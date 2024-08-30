@@ -1,4 +1,5 @@
-<?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');?>
+<?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
+\Bitrix\Main\Loader::includeModule('iblock');?>
 <?function kama_create_csv_file($create_data, $file = null, $col_delimiter = ';', $row_delimiter = "\r\n") {
 	if(!is_array($create_data)) {
 		return false;
@@ -25,204 +26,118 @@
 	}
 	$CSV_str = rtrim($CSV_str, $row_delimiter);
 	if($file) {
-		$CSV_str = iconv("UTF-8", "cp1251", $CSV_str);
+//		$CSV_str = iconv('UTF-8', 'CP1251', $CSV_str);
 		$done = file_put_contents($file, $CSV_str);
 		return $done ? $CSV_str : false;
 	}
 	return $CSV_str;
-}?>
-<?$xml = simplexml_load_file('http://files.gk-artex.ru/artex-autogeely-stock.xml');
-$array_xml = get_object_vars($xml);
-foreach ($array_xml as $key => $value) {
-	$for_import[] = $value->car;
 }
-//pre($xml);
+function objectToArray ($object) {
+	if(!is_object($object) && !is_array($object)) {
+		return $object;
+	}
+	return array_map('objectToArray', (array) $object);
+}
+function mb_ucfirst($word, $charset = 'utf-8') {
+	return mb_strtoupper(mb_substr($word, 0, 1, $charset), $charset).mb_substr($word, 1, mb_strlen($word, $charset) - 1, $charset);
+}?>
+<?$geely_xml = simplexml_load_file('http://files.gk-artex.ru/artex-autogeely-stock.xml');
+$exeed_xml = simplexml_load_file('https://files.gk-artex.ru/artex-autoexeed-stock.xml');
+$solaris_xml = simplexml_load_file('https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/07fd716eb73752b4096128b00cf16849.xml');
+$geely = objectToArray($geely_xml);
+$exeed = objectToArray($exeed_xml);
+$solaris = objectToArray($solaris_xml);
+$array_xml = array_merge($geely['cars']['car'], $exeed['cars']['car'], $solaris['cars']['car']);
+foreach ($array_xml as $key => $value) {
+	$value = array_change_key_case($value, CASE_UPPER);
+	if($value['AVAILABILITY'] == 'в наличии') {
+		$value['STATUS'] = 'В наличии';
+		unset($value['AVAILABILITY']);
+	} elseif ($value['AVAILABILITY'] == 'в пути') {
+		$value['STATUS'] = 'В пути';
+		unset($value['AVAILABILITY']);
+	}
+	$value['WHEEL'] = mb_ucfirst($value['WHEEL']);
+	$for_import[$key] = $value;
+}
+pre($for_import);
 
-$create_data = [
-	[
-		'IE_XML_ID', // ID пустой
-		'IE_NAME', // Название
-		'IE_ID', // ID element
-		'IE_ACTIVE', // Активность
-		'IE_ACTIVE_FROM', // Акт от
-		'IE_ACTIVE_TO', // Акт до
-		'IE_PREVIEW_PICTURE', // ПревьюКарт
-		'IE_PREVIEW_TEXT', // ПревьюТекст
-		'IE_PREVIEW_TEXT_TYPE', // ТипПТ
-		'IE_DETAIL_PICTURE', // ДетКарт
-		'IE_DETAIL_TEXT', // ДетТекст
-		'IE_DETAIL_TEXT_TYPE', // ТипДТ
-		'IE_CODE', // Код пустой
-		'IE_SORT', // Сортировка
-		'IE_TAGS', // Теги
-		'IP_PROP535', // ID комментариев
-		'IP_PROP537', // Видео ютуб
-		'IP_PROP536', // Колво комм
-		'IP_PROP531', // СладГлав
-		'IP_PROP534', // Регион
-		'IP_PROP532', // Наличие
-		'IP_PROP533', // ТорПред
-		'IP_PROP540', // Артикул
-		'IP_PROP538', // Задать вопрос
-		'IP_PROP539', // ЦенаВКарт
-		'IP_PROP541', // ЗаказТов
-		'IP_PROP542', // Рубль символ
-		'IP_PROP543', // СтарЦен
-		'IP_PROP544', // Экономия
-		'IP_PROP545', // Цена
-		'IP_PROP548', // АктКарт
-		'IP_PROP547', // БаннСверху
-		'IP_PROP556', // 
-		'IP_PROP554', // 
-		'IP_PROP552', // 
-		'IP_PROP551', // 
-		'IP_PROP555', // 
-		'IP_PROP553', // 
-		'IP_PROP546', // СНаезШап
-		'IP_PROP549', // ФонКарт
-		'IP_PROP550', // ЦветШапкиИТекста
-		'IP_PROP562', // 
-		'IP_PROP560', // 
-		'IP_PROP558', // 
-		'IP_PROP557', // 
-		'IP_PROP561', // 
-		'IP_PROP559', // 
-		'IP_PROP566', // ДатДляСчет
-		'IP_PROP565', // ПримПодс
-		'IP_PROP564', // ФайлВидео
-		'IP_PROP563', // ХитПродаж
-		'IP_PROP567', // КодВидеоIFRAME
-		'IP_PROP568', // Документы
-		'IP_PROP569', // Галерея
-		'IP_PROP570', // ГалереяБоль
-		'IP_PROP571', // ТоваДня
-		'IP_PROP576', // Курсы
-		'IP_PROP572', // Партнеры
-		'IP_PROP573', // Проекты
-		'IP_PROP574', // Сотрудники
-		'IP_PROP575', // Статьи
-		'IP_PROP577', // Производитель
-		'IP_PROP578', // Тарифы
-		'IP_PROP579', // Тизеры
-		'IP_PROP580', // Вакансии
-		'IP_PROP581', // Отзывы
-		'IP_PROP582', // Новости
-		'IP_PROP583', // Услуги
-		'IP_PROP584', // ФАК
-		'IP_PROP585', // Акции
-		'IP_PROP586', // Фильтры
-		'IP_PROP587', // Товары
-		'IP_PROP529', // Комплекты
-		'IP_PROP637', // КлимКласс
-		'IP_PROP606', // МаксКМЧ
-		'IP_PROP610', // МассаКГ
-		'IP_PROP608', // Модель
-		'IP_PROP611', // МощностьЛС
-		'IP_PROP640', // РаспПодсвет
-		'IP_PROP621', // СтранаПроиз
-		'IP_PROP638', // Температура
-		'IP_PROP634', // Тип
-		'IP_PROP639', // УвеличениеКрат
-		'IP_PROP635', // Цвет
-		'IC_GROUP0', // Категория №1
-		'IC_GROUP1', // Категория №2
-		'IC_GROUP2', // Категория №3
-	],
+$properties = \Bitrix\Iblock\PropertyTable::getList([
+	'select' => ['ID', 'NAME', 'CODE'],
+	'filter' => ['IBLOCK_ID' => \Dao\App::ib('aspro_allcorp3_catalog')->id()],
+])->fetchAll();
+$props = [];
+$properties_codes = [
+	'POWER',
+	'COLOR',
+	'MODEL',
+	'VIN',
+	'MODIFICATION_ID',
+	'COMPLECTATION_NAME',
+	'WHEEL',
+	'CUSTOM',
+	'STATUS',
 ];
+foreach ($properties as $property) {
+	if(in_array($property['CODE'], $properties_codes)) {
+		$props[] = $property;
+		$props_list[] = [
+			'ID' => $property['ID'],
+			'CODE' => $property['CODE']
+		];
+	}
+}
+//pre($props);
+pre($props_list);
+
+//pre($array_xml);
+
+$create_data[0] = [
+	'IE_XML_ID', // XML ID
+	'IE_NAME', // Название
+	'IE_PREVIEW_PICTURE', // ПревьюКарт
+	'IE_PREVIEW_TEXT', // ПревьюТекст
+	'IE_PREVIEW_TEXT_TYPE', // ТипПТ
+	'IE_DETAIL_PICTURE', // ДетКарт
+	'IE_DETAIL_TEXT', // ДетТекст
+	'IE_DETAIL_TEXT_TYPE', // ТипДТ
+	'IE_CODE', // Код пустой
+	'IE_SORT', // Сортировка
+];
+foreach ($props_list as $key => $value) {
+	array_push($create_data[0], 'IP_PROP'.$value['ID']);
+}
+array_push($create_data[0], 'IC_GROUP0');
+array_push($create_data[0], 'IC_GROUP1');
+array_push($create_data[0], 'IC_GROUP2');
+
+//pre($for_import);
+
 foreach ($for_import as $key => $value) {
-	$value = get_object_vars($value);
-	pre($value);
-	$create_data[] = [
-		'IE_XML_ID', // ID пустой
-		$value['folder_id'], // Название
-		'IE_ID', // ID element
-		'IE_ACTIVE', // Активность
-		'IE_ACTIVE_FROM', // Акт от
-		'IE_ACTIVE_TO', // Акт до
-		'IE_PREVIEW_PICTURE', // ПревьюКарт
-		'IE_PREVIEW_TEXT', // ПревьюТекст
-		'IE_PREVIEW_TEXT_TYPE', // ТипПТ
-		'IE_DETAIL_PICTURE', // ДетКарт
-		'IE_DETAIL_TEXT', // ДетТекст
-		'IE_DETAIL_TEXT_TYPE', // ТипДТ
-		createCode($value['folder_id']), // Код пустой
-		'IE_SORT', // Сортировка
-		'IE_TAGS', // Теги
-		'IP_PROP535', // ID комментариев
-		'IP_PROP537', // Видео ютуб
-		'IP_PROP536', // Колво комм
-		'IP_PROP531', // СладГлав
-		'IP_PROP534', // Регион
-		$value['availability'], // Наличие
-		'IP_PROP533', // ТорПред
-		'IP_PROP540', // Артикул
-		'IP_PROP538', // Задать вопрос
-		'IP_PROP539', // ЦенаВКарт
-		'IP_PROP541', // ЗаказТов
-		'IP_PROP542', // Рубль символ
-		'IP_PROP543', // СтарЦен
-		'IP_PROP544', // Экономия
-		'IP_PROP545', // Цена
-		'IP_PROP548', // АктКарт
-		'IP_PROP547', // БаннСверху
-		'IP_PROP556', // 
-		'IP_PROP554', // 
-		'IP_PROP552', // 
-		'IP_PROP551', // 
-		'IP_PROP555', // 
-		'IP_PROP553', // 
-		'IP_PROP546', // СНаезШап
-		'IP_PROP549', // ФонКарт
-		'IP_PROP550', // ЦветШапкиИТекста
-		'IP_PROP562', // 
-		'IP_PROP560', // 
-		'IP_PROP558', // 
-		'IP_PROP557', // 
-		'IP_PROP561', // 
-		'IP_PROP559', // 
-		'IP_PROP566', // ДатДляСчет
-		'IP_PROP565', // ПримПодс
-		'IP_PROP564', // ФайлВидео
-		'IP_PROP563', // ХитПродаж
-		'IP_PROP567', // КодВидеоIFRAME
-		'IP_PROP568', // Документы
-		'IP_PROP569', // Галерея
-		'IP_PROP570', // ГалереяБоль
-		'IP_PROP571', // ТоваДня
-		'IP_PROP576', // Курсы
-		'IP_PROP572', // Партнеры
-		'IP_PROP573', // Проекты
-		'IP_PROP574', // Сотрудники
-		'IP_PROP575', // Статьи
-		'IP_PROP577', // Производитель
-		'IP_PROP578', // Тарифы
-		'IP_PROP579', // Тизеры
-		'IP_PROP580', // Вакансии
-		'IP_PROP581', // Отзывы
-		'IP_PROP582', // Новости
-		'IP_PROP583', // Услуги
-		'IP_PROP584', // ФАК
-		'IP_PROP585', // Акции
-		'IP_PROP586', // Фильтры
-		'IP_PROP587', // Товары
-		'IP_PROP529', // Комплекты
-		'IP_PROP637', // КлимКласс
-		'IP_PROP606', // МаксКМЧ
-		'IP_PROP610', // МассаКГ
-		'IP_PROP608', // Модель
-		'IP_PROP611', // МощностьЛС
-		'IP_PROP640', // РаспПодсвет
-		'IP_PROP621', // СтранаПроиз
-		'IP_PROP638', // Температура
-		'IP_PROP634', // Тип
-		'IP_PROP639', // УвеличениеКрат
-		$value['color'], // Цвет
-		$value['mark_id'], // Категория №1
-		'IC_GROUP1', // Категория №2
-		'IC_GROUP2', // Категория №3
+	$jey = $key + 1;
+//	$value = get_object_vars($value);
+//	pre($value);
+	$create_data[$jey] = [
+		createCode($value['FOLDER_ID'].'_'.$value['VIN']), // XML ID
+		$value['FOLDER_ID'], // Название
+		'', // ПревьюКарт
+		'', // ПревьюТекст
+		'', // ТипПТ
+		'', // ДетКарт
+		$value['DESCRIPTION'], // ДетТекст
+		'', // ТипДТ
+		createCode($value['FOLDER_ID'].'_'.$value['VIN']), // Код пустой
+		$jey, // Сортировка
 	];
+	foreach ($props_list as $ley => $prop) {
+		//array_push($create_data[$jey], $prop['VALUE']);
+		array_push($create_data[$jey], $value[$prop['CODE']]);
+	}
+	array_push($create_data[$jey], $value['MARK_ID']);
+	array_push($create_data[$jey], '');
+	array_push($create_data[$jey], '');
 }
 pre($create_data);
-//kama_create_csv_file($create_data, $_SERVER['DOCUMENT_ROOT'].'/csv_file.csv');
+kama_create_csv_file($create_data, $_SERVER['DOCUMENT_ROOT'].'/upload/csv_file.csv');
 ?>
 <?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');?>
