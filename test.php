@@ -136,7 +136,7 @@ foreach ($for_import as $key => $value) {
 		$first_image = $value['IMAGES']['image'][0];
 	}
 	$create_data[$jey] = [
-		createCode($value['FOLDER_ID'].'_'.$value['VIN']), // XML ID
+		$value['VIN'], // XML ID
 		$value['FOLDER_ID'], // Название
 		$first_image, // ПревьюКарт
 		'', // ПревьюТекст
