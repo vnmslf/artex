@@ -8,6 +8,20 @@ $aMenuLinks = Array(
 		''
 	),
 	Array(
+		'Geely',
+		'/auto/geely/',
+		Array(),
+		Array(),
+		''
+	),
+	Array(
+		'Solaris',
+		'/auto/solaris/',
+		Array(),
+		Array(),
+		''
+	),
+	Array(
 		'Новости',
 		'/news/',
 		Array(),
