@@ -50,7 +50,7 @@ $exeed = objectToArray($exeed_xml);
 $array_xml = array_merge($solaris['cars']['car'], $geely['cars']['car'], $exeed['cars']['car']);
 foreach ($array_xml as $key => $value) {
 	$value = array_change_key_case($value, CASE_UPPER);
-	if($value['AVAILABILITY'] == 'в наличии') {
+	if(mb_strcasecmp($value['AVAILABILITY'], utf8_strrev('в наличии'))) {
 		$value['STATUS'] = 'В наличии';
 		unset($value['AVAILABILITY']);
 	} elseif ($value['AVAILABILITY'] == 'в пути') {
@@ -58,6 +58,7 @@ foreach ($array_xml as $key => $value) {
 		unset($value['AVAILABILITY']);
 	}
 	$value['WHEEL'] = mb_ucfirst($value['WHEEL']);
+	$value['ENGINE_POWER'] = intval(preg_replace('/[^0-9]+/', '', $value['ENGINE_POWER']), 10);
 	$for_import[$key] = $value;
 	//pre($value['IMAGES']);
 }
@@ -69,7 +70,7 @@ $properties = \Bitrix\Iblock\PropertyTable::getList([
 ])->fetchAll();
 $props = [];
 $properties_codes = [
-	'POWER',
+	'ENGINE_POWER',
 	'COLOR',
 	'MODEL',
 	'VIN',
@@ -98,11 +99,11 @@ $create_data[0] = [
 	'IE_XML_ID', // XML ID
 	'IE_NAME', // Название
 	'IE_PREVIEW_PICTURE', // ПревьюКарт
-	'IE_PREVIEW_TEXT', // ПревьюТекст
-	'IE_PREVIEW_TEXT_TYPE', // ТипПТ
-	'IE_DETAIL_PICTURE', // ДетКарт
+	// 'IE_PREVIEW_TEXT', // ПревьюТекст
+	// 'IE_PREVIEW_TEXT_TYPE', // ТипПТ
+	// 'IE_DETAIL_PICTURE', // ДетКарт
 	'IE_DETAIL_TEXT', // ДетТекст
-	'IE_DETAIL_TEXT_TYPE', // ТипДТ
+	//'IE_DETAIL_TEXT_TYPE', // ТипДТ
 	'IE_CODE', // Код пустой
 	'IE_SORT', // Сортировка
 ];
@@ -139,11 +140,11 @@ foreach ($for_import as $key => $value) {
 		$value['VIN'], // XML ID
 		$value['FOLDER_ID'], // Название
 		$first_image, // ПревьюКарт
-		'', // ПревьюТекст
-		'', // ТипПТ
-		'', // ДетКарт
+		//'', // ПревьюТекст
+		//'', // ТипПТ
+		//'', // ДетКарт
 		$value['DESCRIPTION'], // ДетТекст
-		'', // ТипДТ
+		//'', // ТипДТ
 		createCode($value['FOLDER_ID'].'_'.$value['VIN']), // Код пустой
 		$jey, // Сортировка
 	];
