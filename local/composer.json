@@ -1,8 +1,8 @@
 {
     "autoload": {
         "psr-4": {
-            "Tools\\": "classes/Tools/",
-            "Dao\\": "classes/Dao/"
+            "Tools\\": "class/Tools/",
+            "Dao\\": "class/Dao/"
         }
     },
     "extra": {
