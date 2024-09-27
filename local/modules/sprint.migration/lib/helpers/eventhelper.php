@@ -7,6 +7,7 @@ use CEventType;
 use Sprint\Migration\Exceptions\HelperException;
 use Sprint\Migration\Helper;
 use Sprint\Migration\Locale;
+use Sprint\Migration\Support\ExportRules;
 
 class EventHelper extends Helper
 {
@@ -288,20 +289,12 @@ class EventHelper extends Helper
         //Удаление "лишних" значений из массива, наличие которых вызовет ошибку при \CAllEventMessage::Update() (bitrix\modules\main\classes\general\event.php#355)
         //Код удаления взят из соседнего метода \CAllEventMessage::Add() (bitrix\modules\main\classes\general\event.php#310), который сам удаляет эти значения,
         //а в \CAllEventMessage::Update() Битрикс видимо забыл это перенести
-        $arDeleteFields = [
-            'EVENT_MESSAGE_TYPE_ID',
-            'EVENT_MESSAGE_TYPE_ID',
-            'EVENT_MESSAGE_TYPE_NAME',
-            'EVENT_MESSAGE_TYPE_EVENT_NAME',
-            'SITE_ID',
-            'EVENT_TYPE',
-        ];
 
-        foreach ($arDeleteFields as $deleteField) {
-            if (array_key_exists($deleteField, $fields)) {
-                unset($fields[$deleteField]);
-            }
-        }
+        unset($fields['EVENT_MESSAGE_TYPE_ID']);
+        unset($fields['EVENT_MESSAGE_TYPE_NAME']);
+        unset($fields['EVENT_MESSAGE_TYPE_EVENT_NAME']);
+        unset($fields['SITE_ID']);
+        unset($fields['EVENT_TYPE']);
 
         if ($event->Update($id, $fields)) {
             return $id;

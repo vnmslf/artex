@@ -14,15 +14,6 @@ function migrationMigrationsDownConfirm() {
     }
 }
 
-function migrationMigrationsDeleteUnknownConfirm() {
-    if (confirm('Confirm delete unknown migrations')) {
-        migrationExecuteStep('migration_mark', {
-            'version': 'unknown',
-            'status': 'new',
-        });
-    }
-}
-
 function migrationMigrationsUpWithTag() {
     var settag = prompt('Set migrations tag');
     if (settag !== null) {
@@ -92,8 +83,8 @@ function migrationExecuteStep(step_code, postData, succesCallback) {
     postData = postData || {};
     postData['step_code'] = step_code;
     postData['send_sessid'] = jQuery('#migration_container').data('sessid');
-    postData['search'] = jQuery('input[name=migration_search]').val();
-    postData['filter'] = jQuery('select[name=migration_filter]').val();
+    postData['search'] = jQuery('#migration_search').val();
+    postData['migration_view'] = jQuery('#migration_view').val();
 
     migrationEnableButtons(0);
 
@@ -126,7 +117,7 @@ function migrationEnableButtons(enable) {
 function migrationListRefresh(callbackAfterRefresh) {
     jQuery('#migration_actions').empty();
     migrationExecuteStep(
-        jQuery('select[name=migration_filter]').val(),
+        jQuery('#migration_view').val(),
         {},
         function (data) {
             jQuery('#migration_migrations').empty().html(data);
@@ -138,9 +129,9 @@ function migrationListRefresh(callbackAfterRefresh) {
         });
 }
 
-function migrationBuilder(postData, formAttrs) {
+function migrationBuilder(postData) {
     migrationExecuteStep('migration_create', postData, function (result) {
-        migrationBuilderRender(result, formAttrs)
+        migrationBuilderRender(result)
     });
 }
 
@@ -155,11 +146,14 @@ function migrationListScroll() {
     $el.scrollTop($el.prop("scrollHeight"));
 }
 
-function migrationBuilderRender(html, formAttrs) {
-    jQuery('#migration_builder').html(html);
+function migrationBuilderRender(html) {
+    let $builder = jQuery('#migration_builder');
+    let formAttrs = $builder.serializeFormAttrs();
+
+    $builder.html(html);
 
     jQuery.each(formAttrs, function (name, value) {
-        let $el = jQuery('#migration_builder').find('[data-attrs=' + name + ']');
+        let $el = $builder.find('[data-attrs=' + name + ']');
         if ($el.length > 0) {
             $el.val(value).trigger('input');
         }
@@ -196,10 +190,19 @@ jQuery(document).ready(function ($) {
     };
 
     (function () {
-        $('.sp-builder_title').removeClass('sp-active');
-        if (localStorage) {
-            let builderName = localStorage.getItem('migrations_open_builder');
-            $('[data-builder="' + builderName + '"]').addClass('sp-active');
+        let viewName = localStorage.getItem('sprint_migrations_view');
+        if (viewName) {
+            $('#migration_view').val(viewName);
+        }
+
+        let searchName = localStorage.getItem('sprint_migrations_search');
+        if (searchName) {
+            $('#migration_search').val(searchName);
+        }
+
+        let builderName = localStorage.getItem('sprint_migrations_builder');
+        if (builderName) {
+            $('#migration_container [data-builder="' + builderName + '"]').addClass('sp-active');
             migrationReset({builder_name: builderName});
         }
     })($);
@@ -209,29 +212,29 @@ jQuery(document).ready(function ($) {
         migrationListScroll();
     });
 
-    $('#migration_container').on('change', 'select[name=migration_filter]', function () {
+    $('#migration_view').on('change', function () {
+        localStorage.setItem('sprint_migrations_view', $(this).val())
         migrationListRefresh(function () {
             migrationEnableButtons(1);
             migrationListScroll();
-            $('#tab_cont_tab1').click();
         });
     });
 
-    $('#migration_container').on('keypress', 'input[name=migration_search]', function (e) {
+    $('#migration_search').on('keypress', function (e) {
         if (e.keyCode === 13) {
+            localStorage.setItem('sprint_migrations_search', $(this).val())
             migrationListRefresh(function () {
                 migrationEnableButtons(1);
                 migrationListScroll();
-                $('#tab_cont_tab1').click();
             });
         }
     });
 
-    $('#migration_container').on('click', '.sp-search', function () {
+    $('#migration_refresh').on('click', function () {
+        localStorage.setItem('sprint_migrations_search', $('#migration_search').val())
         migrationListRefresh(function () {
             migrationEnableButtons(1);
             migrationListScroll();
-            jQuery('#tab_cont_tab1').click();
         });
     });
 
@@ -243,15 +246,17 @@ jQuery(document).ready(function ($) {
 
     $('#migration_builder').on('input', '.sp-optgroup-search', function (e) {
         e.preventDefault();
-        let text = $(this).val();
+        let searchText = $(this).val().toLowerCase();
 
         $(this).closest('.sp-optgroup').find('.sp-optgroup-group').each(function () {
             let all = 0;
             let hide = 0;
 
             $(this).find('label').each(function () {
+                let labelText = $(this).text().toLowerCase();
+
                 all++;
-                if ($(this).text().includes(text)) {
+                if (labelText.includes(searchText)) {
                     $(this).show()
                 } else {
                     hide++;
@@ -270,8 +275,7 @@ jQuery(document).ready(function ($) {
     $('#migration_builder').on('submit', 'form', function (e) {
         e.preventDefault();
         let postData = $(this).serializeFormJSON();
-        let formAttrs = $(this).serializeFormAttrs();
-        migrationBuilder(postData, formAttrs);
+        migrationBuilder(postData);
     });
 
     $('#migration_builder').on('reset', 'form', function (e) {
@@ -288,9 +292,8 @@ jQuery(document).ready(function ($) {
 
         $(this).addClass('sp-active');
 
-        if (localStorage) {
-            localStorage.setItem('migrations_open_builder', builderName);
-        }
+        localStorage.setItem('sprint_migrations_builder', builderName);
+
         migrationReset({builder_name: builderName});
     });
 

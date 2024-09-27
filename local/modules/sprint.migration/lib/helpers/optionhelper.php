@@ -14,16 +14,25 @@ class OptionHelper extends Helper
     public function isEnabled()
     {
         return (
-            class_exists('\Bitrix\Main\ModuleManager') && class_exists('\Bitrix\Main\Entity\DataManager') && class_exists('\Bitrix\Main\Config\Option')
+            class_exists('\Bitrix\Main\ModuleManager')
+            && class_exists('\Bitrix\Main\Entity\DataManager')
+            && class_exists('\Bitrix\Main\Config\Option')
         );
     }
 
-    /**
-     * @return array|mixed
-     */
-    public function getModules()
+    public function getModules(array $filter = []): array
     {
-        return ModuleManager::getInstalledModules();
+        $modules = ModuleManager::getInstalledModules();
+
+        if (isset($filter['!ID'])) {
+            $skipModules = is_array($filter['!ID']) ? $filter['!ID'] : [$filter['!ID']];
+
+            $modules = array_filter($modules, function ($module) use ($skipModules) {
+                return !in_array($module['ID'], $skipModules);
+            });
+        }
+
+        return $modules;
     }
 
     /**
@@ -58,7 +67,7 @@ class OptionHelper extends Helper
      * @param array $filter
      *
      * @throws HelperException
-     * @return array|false
+     * @return array
      */
     public function getOption($filter = [])
     {
@@ -72,9 +81,8 @@ class OptionHelper extends Helper
                 'VALUE'     => $value,
             ]);
         } catch (Exception $e) {
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
-
-        return false;
     }
 
     /**

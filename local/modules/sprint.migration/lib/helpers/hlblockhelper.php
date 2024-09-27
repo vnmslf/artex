@@ -511,7 +511,7 @@ class HlblockHelper extends Helper
 
             throw new HelperException(implode(PHP_EOL, $result->getErrorMessages()));
         } catch (Exception $e) {
-            throw new HelperException($e->getMessage());
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -562,7 +562,7 @@ class HlblockHelper extends Helper
 
             throw new HelperException(implode(PHP_EOL, $result->getErrorMessages()));
         } catch (Exception $e) {
-            throw new HelperException($e->getMessage());
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -603,7 +603,7 @@ class HlblockHelper extends Helper
 
             throw new HelperException(implode(PHP_EOL, $result->getErrorMessages()));
         } catch (Exception $e) {
-            throw new HelperException($e->getMessage());
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -645,7 +645,7 @@ class HlblockHelper extends Helper
 
             throw new HelperException(implode(PHP_EOL, $result->getErrorMessages()));
         } catch (Exception $e) {
-            throw new HelperException($e->getMessage());
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -670,7 +670,7 @@ class HlblockHelper extends Helper
 
             throw new HelperException(implode(PHP_EOL, $result->getErrorMessages()));
         } catch (Exception $e) {
-            throw new HelperException($e->getMessage());
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -686,7 +686,7 @@ class HlblockHelper extends Helper
 
             throw new HelperException(implode(PHP_EOL, $result->getErrorMessages()));
         } catch (Exception $e) {
-            throw new HelperException($e->getMessage());
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -694,10 +694,10 @@ class HlblockHelper extends Helper
     {
         $this->checkRequiredKeys($fields, ['UF_XML_ID']);
 
-        $item = $this->getElementByXmlId($hlblockName, $fields['UF_XML_ID']);
+        $id = $this->getElementIdByXmlId($hlblockName, $fields['UF_XML_ID']);
 
-        if (!empty($item['ID'])) {
-            return $this->updateElement($hlblockName, $item['ID'], $fields);
+        if ($id) {
+            return $this->updateElement($hlblockName, $id, $fields);
         }
 
         return $this->addElement($hlblockName, $fields);
@@ -706,9 +706,9 @@ class HlblockHelper extends Helper
     public function deleteElementByXmlId($hlblockName, $xmlId)
     {
         if (!empty($xmlId)) {
-            $item = $this->getElementByXmlId($hlblockName, $xmlId);
-            if ($item) {
-                return $this->deleteElement($hlblockName, $item['ID']);
+            $id = $this->getElementIdByXmlId($hlblockName, $xmlId);
+            if ($id) {
+                return $this->deleteElement($hlblockName, $id);
             }
         }
         return false;
@@ -771,9 +771,10 @@ class HlblockHelper extends Helper
      * предыдущие права сбрасываются
      * принимает массив вида [$groupId => $letter]
      *
-     * @param       $hlblockId
+     * @param int   $hlblockId
      * @param array $permissions
      *
+     * @throws HelperException
      * @return bool
      */
     public function setGroupPermissions($hlblockId, $permissions = [])
@@ -803,7 +804,7 @@ class HlblockHelper extends Helper
                 }
             }
         } catch (Exception $e) {
-            return false;
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
 
         return true;
@@ -822,7 +823,7 @@ class HlblockHelper extends Helper
             $entity = HighloadBlockTable::compileEntity($hlblock);
             return $entity->getDataClass();
         } catch (Exception $e) {
-            throw new HelperException($e->getMessage());
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -839,8 +840,34 @@ class HlblockHelper extends Helper
         try {
             return $dataManager::getList($params)->fetchAll();
         } catch (Exception $e) {
-            throw new HelperException($e->getMessage());
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
+    }
+
+    /**
+     * @throws HelperException
+     */
+    public function getElement($hlblockName, array $filter)
+    {
+        $dataManager = $this->getDataManager($hlblockName);
+        try {
+            return $dataManager::getList([
+                'filter' => $filter,
+                'offset' => 0,
+                'limit'  => 1,
+            ])->fetch();
+        } catch (Exception $e) {
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
+        }
+    }
+
+    /**
+     * @throws HelperException
+     */
+    public function getElementId($hlblockName, array $filter): int
+    {
+        $item = $this->getElement($hlblockName, $filter);
+        return (int)($item['ID'] ?? 0);
     }
 
     /**
@@ -852,26 +879,18 @@ class HlblockHelper extends Helper
      */
     public function getElementByXmlId($hlblockName, $xmlId)
     {
-        $dataManager = $this->getDataManager($hlblockName);
-        try {
-            return $dataManager::getList([
-                'filter' => ['UF_XML_ID' => $xmlId],
-                'offset' => 0,
-                'limit'  => 1,
-            ])->fetch();
-        } catch (Exception $e) {
-            throw new HelperException($e->getMessage());
-        }
+        return $this->getElement($hlblockName, ['UF_XML_ID' => $xmlId]);
+    }
+
+    public function getElementIdByXmlId($hlblockName, $xmlId): int
+    {
+        return $this->getElementId($hlblockName, ['UF_XML_ID' => $xmlId]);
     }
 
     /**
-     * @param       $hlblockName
-     * @param array $filter
-     *
      * @throws HelperException
-     * @return int|void
      */
-    public function getElementsCount($hlblockName, $filter = [])
+    public function getElementsCount($hlblockName, array $filter = [])
     {
         $dataManager = $this->getDataManager($hlblockName);
         try {
@@ -887,7 +906,7 @@ class HlblockHelper extends Helper
 
             return ($item) ? $item['CNT'] : 0;
         } catch (Exception $e) {
-            throw new HelperException($e->getMessage());
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
     }
 
@@ -964,6 +983,7 @@ class HlblockHelper extends Helper
     /**
      * @param int $hlblockId
      *
+     * @throws HelperException
      * @return array
      */
     protected function getGroupRights($hlblockId)
@@ -982,7 +1002,7 @@ class HlblockHelper extends Helper
                 ]
             )->fetchAll();
         } catch (Exception $e) {
-            $items = [];
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
 
         foreach ($items as $item) {
@@ -1023,6 +1043,7 @@ class HlblockHelper extends Helper
     /**
      * @param int $hlblockId
      *
+     * @throws HelperException
      * @return array
      */
     protected function getHblockLangs($hlblockId)
@@ -1046,6 +1067,7 @@ class HlblockHelper extends Helper
                 ];
             }
         } catch (Exception $e) {
+            throw new HelperException($e->getMessage(), $e->getCode(), $e);
         }
 
         return $result;
@@ -1076,7 +1098,7 @@ class HlblockHelper extends Helper
         }
 
         foreach ($items as $item) {
-            HighloadBlockLangTable::delete($item['ID']);
+            HighloadBlockLangTable::delete(['ID' => $item['ID'], 'LID' => $item['LID']]);
             $del++;
         }
 

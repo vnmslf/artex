@@ -6,9 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Tools\\' => array($baseDir . '/classes/Tools'),
+    'Tools\\' => array($baseDir . '/api/class/Tools'),
+    'Pictures\\' => array($baseDir . '/api/class/Pictures'),
     'PHPMailer\\PHPMailer\\' => array($vendorDir . '/phpmailer/phpmailer/src'),
-    'Dao\\' => array($baseDir . '/classes/Dao'),
+    'Dao\\' => array($baseDir . '/api/class/Dao'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
     'Akh\\Typograf\\' => array($vendorDir . '/akh/typograf/src'),
 );

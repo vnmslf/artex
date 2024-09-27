@@ -18,7 +18,6 @@ if ($_POST["step_code"] == "migration_view_status" && check_bitrix_sessid('send_
 
     $versions = $versionManager->getVersions(
         [
-            'status' => '',
             'search' => $search,
         ]
     );
@@ -35,17 +34,17 @@ if ($_POST["step_code"] == "migration_view_status" && check_bitrix_sessid('send_
     }
 
     ?>
-    <table class="sp-status">
+    <table class="sp-summary">
         <?php foreach ($status as $code => $cnt) {
             $ucode = strtoupper($code); ?>
             <tr>
-                <td class="sp-status-l">
+                <td class="sp-summary-l">
                 <span class="sp-item-<?= $code ?>">
                     <?= Locale::getMessage($ucode) ?>
                 </span>
                     <?= Locale::getMessage('DESC_' . $ucode) ?>
                 </td>
-                <td class="sp-status-r">
+                <td class="sp-summary-r">
                     <?= $cnt ?>
                 </td>
             </tr>

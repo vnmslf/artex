@@ -20,7 +20,7 @@ class UserGroupBuilder extends VersionBuilder
     {
         $this->setTitle(Locale::getMessage('BUILDER_UserGroupExport1'));
         $this->setDescription(Locale::getMessage('BUILDER_UserGroupExport2'));
-        $this->setGroup('Main');
+        $this->setGroup(Locale::getMessage('BUILDER_GROUP_Main'));
 
         $this->addVersionFields();
     }
@@ -74,9 +74,9 @@ class UserGroupBuilder extends VersionBuilder
     {
         $helper = $this->getHelperManager();
 
-        $items = $helper->UserGroup()->getGroups([
-            '!STRING_ID' => false,
-        ]);
+        $items = array_filter($helper->UserGroup()->getGroups(), function ($item) {
+            return !empty($item['STRING_ID']);
+        });
 
         $items = array_map(function ($item) {
             $item['NAME'] = '[' . $item['STRING_ID'] . '] ' . $item['NAME'];

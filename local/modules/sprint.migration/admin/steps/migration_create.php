@@ -2,6 +2,7 @@
 
 use Sprint\Migration\VersionConfig;
 use Sprint\Migration\VersionManager;
+use Sprint\Migration\Exceptions\BuilderException;
 
 if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED !== true) {
     die();
@@ -16,9 +17,13 @@ if ($hasSteps && check_bitrix_sessid('send_sessid')) {
 
     $builderName = !empty($_POST['builder_name']) ? trim($_POST['builder_name']) : '';
 
-    $builder = $versionManager->createBuilder($builderName, $_POST);
+    try {
+        $builder = $versionManager->createBuilder($builderName, $_POST);
+    } catch (BuilderException $e) {
+        return;
+    }
 
-    if ($builder && $stepCode == 'migration_create') {
+    if ($stepCode == 'migration_create') {
         $builder->buildExecute();
         $builder->buildAfter();
 
@@ -40,7 +45,7 @@ if ($hasSteps && check_bitrix_sessid('send_sessid')) {
                 });
             </script><?php
         }
-    } elseif ($builder && $stepCode == 'migration_reset') {
+    } elseif ($stepCode == 'migration_reset') {
         $builder->renderHtml();
         ?>
         <script>

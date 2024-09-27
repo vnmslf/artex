@@ -2,9 +2,7 @@
 
 namespace Sprint\Migration;
 
-use Sprint\Migration\Exceptions\HelperException;
 use Sprint\Migration\Exceptions\MigrationException;
-use Sprint\Migration\Exceptions\RestartException;
 use Sprint\Migration\Traits\ExitMessageTrait;
 use Sprint\Migration\Traits\HelperManagerTrait;
 
@@ -19,6 +17,7 @@ class Version extends ExchangeEntity
     use ExitMessageTrait;
     use OutTrait;
 
+    protected $author        = "";
     protected $description   = "";
     protected $moduleVersion = "";
     /**
@@ -30,27 +29,19 @@ class Version extends ExchangeEntity
     protected $requiredVersions = [];
 
     /**
-     * your code for up
-     *
-     * @throws RestartException
-     * @throws HelperException
-     * @return bool|void
+     * @throws MigrationException
      */
     public function up()
     {
-        return true;
+        throw new MigrationException(Locale::getMessage('WRITE_UP_CODE'));
     }
 
     /**
-     * your code for down
-     *
-     * @throws RestartException
-     * @throws HelperException
-     * @return bool|void
+     * @throws MigrationException
      */
     public function down()
     {
-        return true;
+        throw new MigrationException(Locale::getMessage('WRITE_DOWN_CODE'));
     }
 
     /**
@@ -59,6 +50,11 @@ class Version extends ExchangeEntity
     public function getDescription()
     {
         return $this->description;
+    }
+
+    public function getAuthor(): string
+    {
+        return $this->author;
     }
 
     /**

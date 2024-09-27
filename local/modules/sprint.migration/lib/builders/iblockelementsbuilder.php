@@ -25,7 +25,7 @@ class IblockElementsBuilder extends VersionBuilder
     {
         $this->setTitle(Locale::getMessage('BUILDER_IblockElementsExport1'));
         $this->setDescription(Locale::getMessage('BUILDER_IblockElementsExport2'));
-        $this->setGroup('Iblock');
+        $this->setGroup(Locale::getMessage('BUILDER_GROUP_Iblock'));
 
         $this->addVersionFields();
     }
@@ -83,15 +83,15 @@ class IblockElementsBuilder extends VersionBuilder
                 'width'  => 250,
                 'select' => [
                     [
-                        'title' => Locale::getMessage('BUILDER_IblockElementsExport_SelectAll'),
+                        'title' => Locale::getMessage('BUILDER_SelectAll'),
                         'value' => 'all',
                     ],
                     [
-                        'title' => Locale::getMessage('BUILDER_IblockElementsExport_SelectNone'),
+                        'title' => Locale::getMessage('BUILDER_SelectNone'),
                         'value' => 'none',
                     ],
                     [
-                        'title' => Locale::getMessage('BUILDER_IblockElementsExport_SelectSome'),
+                        'title' => Locale::getMessage('BUILDER_SelectSome'),
                         'value' => 'some',
                     ],
                 ],
@@ -132,7 +132,7 @@ class IblockElementsBuilder extends VersionBuilder
                 'width'  => 250,
                 'select' => [
                     [
-                        'title' => Locale::getMessage('BUILDER_IblockElementsExport_SelectAll'),
+                        'title' => Locale::getMessage('BUILDER_SelectAll'),
                         'value' => 'all',
                     ],
                     [
@@ -196,15 +196,15 @@ class IblockElementsBuilder extends VersionBuilder
                 'width'  => 250,
                 'select' => [
                     [
-                        'title' => Locale::getMessage('BUILDER_IblockElementsExport_SelectAll'),
+                        'title' => Locale::getMessage('BUILDER_SelectAll'),
                         'value' => 'all',
                     ],
                     [
-                        'title' => Locale::getMessage('BUILDER_IblockElementsExport_SelectNone'),
+                        'title' => Locale::getMessage('BUILDER_SelectNone'),
                         'value' => 'none',
                     ],
                     [
-                        'title' => Locale::getMessage('BUILDER_IblockElementsExport_SelectSome'),
+                        'title' => Locale::getMessage('BUILDER_SelectSome'),
                         'value' => 'some',
                     ],
                 ],

@@ -29,11 +29,7 @@ class Installer
      */
     public function up()
     {
-        $this->executeAll(
-            [
-                'status' => VersionEnum::STATUS_NEW,
-            ]
-        );
+        $this->executeAll([], VersionEnum::ACTION_UP);
     }
 
     /**
@@ -41,25 +37,18 @@ class Installer
      */
     public function down()
     {
-        $this->executeAll(
-            [
-                'status' => VersionEnum::STATUS_INSTALLED,
-            ]
-        );
+        $this->executeAll([], VersionEnum::ACTION_DOWN);
     }
 
     /**
-     * @param $filter
-     *
      * @throws MigrationException
      */
-    protected function executeAll($filter)
+    protected function executeAll($filter, $action)
     {
-        $versions = $this->versionManager->getVersions($filter);
-        $action = ($filter['status'] == VersionEnum::STATUS_NEW) ? VersionEnum::ACTION_UP : VersionEnum::ACTION_DOWN;
+        $versionNames = $this->versionManager->getListForExecute($filter, $action);
 
-        foreach ($versions as $item) {
-            $this->executeVersion($item['version'], $action);
+        foreach ($versionNames as $versionName) {
+            $this->executeVersion($versionName, $action);
         }
     }
 
@@ -90,9 +79,9 @@ class Installer
             }
 
             if (!$success && !$restart) {
-                throw new MigrationException(
-                    $this->versionManager->getLastException()->getMessage()
-                );
+                if ($this->versionManager->getLastException()) {
+                    throw $this->versionManager->getLastException();
+                }
             }
         } while ($exec == 1);
 

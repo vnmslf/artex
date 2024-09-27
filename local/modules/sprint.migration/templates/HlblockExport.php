@@ -12,6 +12,7 @@
  * @var $hlblockPermissions
  * @var $exportElementForm
  * @var $exportElementList
+ * @var $author
  * @formatter:off
  */
 
@@ -24,6 +25,8 @@ namespace Sprint\Migration;
 class <?php echo $version ?> extends <?php echo $extendClass ?>
 
 {
+    protected $author = "<?php echo $author ?>";
+
     protected $description = "<?php echo $description ?>";
 
     protected $moduleVersion = "<?php echo $moduleVersion ?>";
@@ -54,10 +57,5 @@ class <?php echo $version ?> extends <?php echo $extendClass ?>
 <?php if (!empty($exportElementList)): ?>
     $helper->UserOptions()->saveHlblockList($hlblockId, <?php echo var_export($exportElementList, 1) ?>);
 <?php endif?>
-    }
-
-    public function down()
-    {
-        //your code ...
     }
 }

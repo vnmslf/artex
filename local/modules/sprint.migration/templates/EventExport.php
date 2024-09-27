@@ -7,6 +7,7 @@
  * @var $extendUse
  * @var $extendClass
  * @var $moduleVersion
+ * @var $author
  * @formatter:off
  */
 
@@ -19,6 +20,8 @@ namespace Sprint\Migration;
 class <?php echo $version ?> extends <?php echo $extendClass ?>
 
 {
+    protected $author = "<?php echo $author ?>";
+
     protected $description = "<?php echo $description ?>";
 
     protected $moduleVersion = "<?php echo $moduleVersion ?>";
@@ -38,10 +41,5 @@ class <?php echo $version ?> extends <?php echo $extendClass ?>
         $helper->Event()->saveEventMessage('<?php echo $eventName ?>', <?php echo var_export($fields, 1) ?>);
     <?php } ?>
 <?php } ?>
-    }
-
-    public function down()
-    {
-        //your code ...
     }
 }

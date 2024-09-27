@@ -1,6 +1,5 @@
 <?php
 
-use Sprint\Migration\Locale;
 use Sprint\Migration\VersionConfig;
 use Sprint\Migration\VersionManager;
 
@@ -12,7 +11,7 @@ $builderList = $versionConfig->getVal('version_builders', []);
 $builderTree = [];
 foreach ($builderList as $builderName => $builderClass) {
     $builder = $versionManager->createBuilder($builderName);
-    if ($builder) {
+    if ($builder->isEnabled()) {
         $builderGroup = $builder->getGroup();
 
         if (!isset($builderTree[$builderGroup])) {
@@ -31,7 +30,7 @@ foreach ($builderList as $builderName => $builderClass) {
         <div class="sp-col sp-col_builders">
             <?php foreach ($builderTree as $groupName => $groupItems) { ?>
                 <div class="sp-builder_group">
-                    <?= Locale::getMessage('BUILDER_GROUP_' . $groupName) ?>
+                    <?=$groupName?>
                 </div>
                 <?php foreach ($groupItems as $item) { ?>
                     <div class="sp-builder_title" data-builder="<?= $item['NAME'] ?>"><?= $item['TITLE'] ?></div>

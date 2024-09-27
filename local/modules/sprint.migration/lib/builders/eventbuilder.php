@@ -18,7 +18,7 @@ class EventBuilder extends VersionBuilder
     protected function initialize()
     {
         $this->setTitle(Locale::getMessage('BUILDER_EventExport1'));
-        $this->setGroup('Main');
+        $this->setGroup(Locale::getMessage('BUILDER_GROUP_Main'));
 
         $this->addVersionFields();
     }
@@ -68,10 +68,6 @@ class EventBuilder extends VersionBuilder
             return $item;
         }, $items);
 
-        return $this->createSelect(
-            $items,
-            'EVENT_NAME',
-            'NAME'
-        );
+        return $this->createSelect($items, 'EVENT_NAME', 'NAME');
     }
 }

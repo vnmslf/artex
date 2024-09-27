@@ -3,6 +3,14 @@
     border: 1px solid;
     border-color: #c4ced2 #dce7ed #dce7ed;
     padding: 10px;
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+.sp-col-scroll {
+    padding-right: 0;
+    padding-bottom: 0;
 }
 
 .sp-col.sp-col_builders {
@@ -19,14 +27,11 @@
     background: #fff;
 }
 
-
-.sp-col-scroll {
-    padding-right: 0;
+.sp-search {
+    padding: 0 0 10px;
 }
-
 .sp-scroll {
-    overflow-x: auto;
-    overflow-y: scroll;
+    overflow: auto;
     max-height: 425px;
 }
 
@@ -68,31 +73,37 @@
     display: block;
 }
 
-.sp-table {
-    display: table;
-    width: 100%;
-}
 
 .sp-separator {
     display: block;
     padding: 10px;
 }
 
+.sp-table {
+    /*display: table;*/
+    width: 100%;
+}
+
 .sp-table .sp-row1,
 .sp-table .sp-row2,
 .sp-table .sp-row3 {
-    display: table-row;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    /*display: table-row;*/
 }
 
 .sp-table .sp-row1 .sp-col {
-    display: table-cell;
-    vertical-align: top;
+    /*display: table-cell;*/
+    /*vertical-align: top;*/
     width: 100%;
 }
 
 .sp-table .sp-row2 .sp-col {
-    display: table-cell;
-    vertical-align: top;
+    /*display: table-cell;*/
+    /*vertical-align: top;*/
     width: 50%;
     /*float: left;*/
     /*width: 350px;*/
@@ -107,8 +118,8 @@
 }
 
 .sp-table .sp-row3 .sp-col {
-    display: table-cell;
-    vertical-align: top;
+    /*display: table-cell;*/
+    /*vertical-align: top;*/
     /*float: left;*/
     width: 33%;
 }
@@ -118,14 +129,6 @@
     content: '';
     display: block;
     clear: both;
-}
-
-.sp-filter {
-    /*margin: 10px 0;*/
-    /*background: #ccc;*/
-    /*padding: 10px;*/
-
-    float: right;
 }
 
 table.sp-config {
@@ -140,32 +143,34 @@ table.sp-list {
     border-collapse: collapse;
 }
 
-table.sp-list td.sp-list-td__content {
-    vertical-align: top;
-    text-align: left;
-    padding: 5px 5px;
-    /*width: 50px;*/
-}
-
-table.sp-list td.sp-list-td__buttons {
-    white-space: nowrap;
-    text-align: right;
-    vertical-align: top;
-    padding: 5px 5px;
-}
-
-
-table.sp-status {
+table.sp-summary {
     border-collapse: collapse;
 }
 
-table.sp-status td.sp-status-l {
+.sp-list-td__content {
+    vertical-align: top;
+    text-align: left;
+    padding: 0 10px 10px;
+    /*width: 50px;*/
+}
+
+.sp-list-td__content span {
+    margin: 0 5px 5px 0;
+}
+
+.sp-list-td__buttons {
+    white-space: nowrap;
+    text-align: right;
+    vertical-align: top;
+}
+
+td.sp-summary-l {
     vertical-align: middle;
     text-align: left;
     padding: 5px 5px 5px 0;
 }
 
-table.sp-status td.sp-status-r {
+td.sp-summary-r {
     vertical-align: middle;
     text-align: left;
     padding: 5px 0 5px 5px;
@@ -210,49 +215,68 @@ a.sp-item-unknown:visited {
     color: #00a;
 }
 
-.sp-modified {
+
+.sp-label {
     padding: 0 10px;
-    background: #ffcc00;
+    background: #eee;
     color: #000;
-    border-radius: 10px;
+    -webkit-border-radius: 4px;
+       -moz-border-radius: 4px;
+            border-radius: 4px;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
     cursor: default;
-    font-weight: bold;
 }
 
-.sp-new,
-.sp-older {
-    padding: 0 10px;
+.sp-label-tag {
+    background: #ffbbff;
+    border-bottom: 1px solid #ee33ff;
+    border-right: 1px solid #ee33ff;
+}
+
+.sp-label-modified {
+    background: #ffcc00;
+}
+
+.sp-label-older {
     background: #b00;
     color: #fff;
-    border-radius: 10px;
-    cursor: default;
-    font-weight: bold;
-}
-
-.sp-tag {
-    padding: 0 10px;
-    background: #ccc;
-    border-radius: 10px;
-    cursor: default;
 }
 
 .sp-optgroup-group {
     margin-bottom: 10px;
 }
 
+.sp-optgroup-head {
+    margin-bottom: 10px;
+}
+
+.sp-optgroup-scroll {
+    max-height: 300px;
+    overflow: auto;
+}
+
 .sp-optgroup-title {
-    font-weight: bold;
+    /*font-weight: bold;*/
 }
 
 .sp-field {
     margin-bottom: 10px;
 }
 
+.sp-field-title {
+    font-weight: bold;
+}
+
 .sp-info-message {
-    border-radius: 5px;
+    -webkit-border-radius: 5px;
+       -moz-border-radius: 5px;
+            border-radius: 5px;
     border: 1px solid;
     border-color: #d3c6a3 #cabc90 #c1b37f #c9bc8f;
-    box-shadow: inset 0 1px 0 #fff;
+    -webkit-box-shadow: inset 0 1px 0 #fff;
+       -moz-box-shadow: inset 0 1px 0 #fff;
+            box-shadow: inset 0 1px 0 #fff;
     color: #716536;
     background: #e6e5be;
     display: inline-block;
@@ -307,4 +331,13 @@ a.sp-item-unknown:visited {
 
 .sp-out {
     white-space: pre-wrap;
+    margin-bottom: 5px;
+}
+
+.sp-out:last-child {
+    margin-bottom: 0;
+}
+
+.sp-out-list-empty {
+    padding: 0 0 10px
 }

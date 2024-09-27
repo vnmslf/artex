@@ -3,9 +3,13 @@
 namespace Sprint\Migration;
 
 use Sprint\Migration\Enum\VersionEnum;
+use Sprint\Migration\Exceptions\MigrationException;
+use Sprint\Migration\Traits\CurrentUserTrait;
 
 abstract class VersionBuilder extends AbstractBuilder
 {
+    use CurrentUserTrait;
+
     protected function addVersionFields()
     {
         $this->addField(
@@ -41,26 +45,21 @@ abstract class VersionBuilder extends AbstractBuilder
         return $prefix;
     }
 
-    protected function purifyDescription($descr = '')
+    protected function purifyDescription($descr = ''): string
     {
-        $descr = strval($descr);
-        $descr = str_replace(["\n\r", "\r\n", "\n", "\r"], ' ', $descr);
-        $descr = strip_tags($descr);
-        $descr = addslashes($descr);
-        return $descr;
+        return addslashes(strip_tags(trim($descr)));
     }
 
-    protected function getVersionFile($versionName)
+    protected function getVersionFile($versionName): string
     {
-        return $this->getVersionConfig()->getVal('migration_dir') . '/' .
-               $versionName . '.php';
+        $dir = $this->getVersionConfig()->getVal('migration_dir');
+        return $dir . '/' . $versionName . '.php';
     }
 
-    protected function getVersionResourceFile($versionName, $name)
+    protected function getVersionResourceFile($versionName, $name): string
     {
-        return $this->getVersionConfig()->getVal('exchange_dir') . '/' .
-               $versionName . '_files/' .
-               $name;
+        $dir = $this->getVersionConfig()->getVal('exchange_dir');
+        return $dir . '/' . $versionName . '_files/' . $name;
     }
 
     protected function getVersionName()
@@ -71,7 +70,7 @@ abstract class VersionBuilder extends AbstractBuilder
         return $this->params['~version_name'];
     }
 
-    protected function createVersionName()
+    protected function createVersionName(): string
     {
         return strtr(
             $this->getVersionConfig()->getVal('version_name_template'),
@@ -85,19 +84,19 @@ abstract class VersionBuilder extends AbstractBuilder
     }
 
     /**
-     * @param string $templateFile
-     * @param array  $templateVars
-     * @param bool   $markAsInstalled
-     *
-     * @throws Exceptions\MigrationException
-     * @return bool|string
+     * @throws MigrationException
      */
-    protected function createVersionFile($templateFile = '', $templateVars = [], $markAsInstalled = true)
-    {
+    protected function createVersionFile(
+        string $templateFile = '',
+        array $templateVars = [],
+        bool $markAsInstalled = true
+    ): string {
         $templateVars['description'] = $this->purifyDescription(
             $this->getFieldValue('description')
         );
-
+        $templateVars['author'] = $this->purifyDescription(
+            $this->getCurrentUserLogin()
+        );
         if (empty($templateVars['version'])) {
             $templateVars['version'] = $this->getVersionName();
         }
@@ -113,32 +112,27 @@ abstract class VersionBuilder extends AbstractBuilder
             $extendUse = '';
         }
 
-        $tplVars = array_merge(
-            [
-                'extendUse'     => $extendUse,
-                'extendClass'   => $extendClass,
-                'moduleVersion' => Module::getVersion(),
-            ], $templateVars
-        );
+        $templateVars['extendUse'] = $extendUse;
+        $templateVars['extendClass'] = $extendClass;
+        $templateVars['moduleVersion'] = Module::getVersion();
 
         if (!is_file($templateFile)) {
             $templateFile = Module::getModuleDir() . '/templates/version.php';
         }
 
         $fileName = $this->getVersionFile($templateVars['version']);
-        $fileContent = $this->renderFile($templateFile, $tplVars);
+        $fileContent = $this->renderFile($templateFile, $templateVars);
 
         file_put_contents($fileName, $fileContent);
 
         if (!is_file($fileName)) {
-            Out::outError(
+            throw new MigrationException(
                 Locale::getMessage(
                     'ERR_CANT_CREATE_FILE', [
                         '#NAME#' => $fileName,
                     ]
                 )
             );
-            return false;
         }
 
         Out::outSuccess(

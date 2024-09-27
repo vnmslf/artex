@@ -20,7 +20,7 @@ class IblockBuilder extends VersionBuilder
     {
         $this->setTitle(Locale::getMessage('BUILDER_IblockExport1'));
         $this->setDescription(Locale::getMessage('BUILDER_IblockExport2'));
-        $this->setGroup('Iblock');
+        $this->setGroup(Locale::getMessage('BUILDER_GROUP_Iblock'));
 
         $this->addVersionFields();
     }
@@ -141,13 +141,8 @@ class IblockBuilder extends VersionBuilder
             $exportSectionForm = $helper->UserOptions()->exportSectionForm($iblockId);
             $exportElementList = $helper->UserOptions()->exportElementList($iblockId);
             $exportSectionList = $helper->UserOptions()->exportSectionList($iblockId);
-
-            $exportElementGrid = $helper->UserOptions()->exportGrid(
-                $helper->UserOptions()->getElementGridId($iblockId)
-            );
-            $exportSectionGrid = $helper->UserOptions()->exportGrid(
-                $helper->UserOptions()->getSectionGridId($iblockId)
-            );
+            $exportElementGrid = $helper->UserOptions()->exportElementGrid($iblockId);
+            $exportSectionGrid = $helper->UserOptions()->exportSectionGrid($iblockId);
         }
 
         $this->createVersionFile(

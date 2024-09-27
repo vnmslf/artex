@@ -3,7 +3,6 @@
 namespace Sprint\Migration;
 
 use Sprint\Migration\Exceptions\HelperException;
-use Sprint\Migration\Helpers\AdminIblockHelper;
 use Sprint\Migration\Helpers\AgentHelper;
 use Sprint\Migration\helpers\DeliveryServiceHelper;
 use Sprint\Migration\Helpers\EventHelper;
@@ -40,18 +39,14 @@ use Sprint\Migration\Helpers\UserTypeEntityHelper;
  * @method MedialibExchangeHelper   MedialibExchange()
  * @method IblockExchangeHelper     IblockExchange()
  * @method HlblockExchangeHelper    HlblockExchange()
- * @method AdminIblockHelper        AdminIblock()
  */
 class HelperManager
 {
-    private        $cache      = [];
     private static $instance   = null;
-    private        $registered = [];
+    private array  $registered = [];
+    private array  $cache      = [];
 
-    /**
-     * @return HelperManager
-     */
-    public static function getInstance()
+    public static function getInstance(): HelperManager
     {
         if (!isset(static::$instance)) {
             static::$instance = new static();
@@ -77,31 +72,26 @@ class HelperManager
     }
 
     /**
-     * @param $name
-     *
      * @throws HelperException
-     * @return Helper
      */
-    protected function callHelper($name)
+    protected function callHelper(string $name): Helper
     {
         if (isset($this->cache[$name])) {
             return $this->cache[$name];
         }
 
-        $helperClass = '\\Sprint\\Migration\\Helpers\\' . $name . 'Helper';
-        if (class_exists($helperClass)) {
-            $this->cache[$name] = new $helperClass;
-            return $this->cache[$name];
-        }
+        $default = '\\Sprint\\Migration\\Helpers\\' . $name . 'Helper';
 
-        if (isset($this->registered[$name])) {
-            $helperClass = $this->registered[$name];
-            if (class_exists($helperClass)) {
-                $this->cache[$name] = new $helperClass;
-                return $this->cache[$name];
+        $class = $this->registered[$name] ?? $default;
+
+        if (class_exists($class)) {
+            $ob = new $class;
+            if ($ob instanceof Helper) {
+                $this->cache[$name] = $ob;
+                return $ob;
             }
         }
 
-        throw new HelperException("Helper $name not found");
+        throw new HelperException("Helper \"$name\" in \"$class\" not found");
     }
 }

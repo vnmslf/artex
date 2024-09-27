@@ -4,6 +4,8 @@ use Bitrix\Main\Loader;
 use Sprint\Migration\Locale;
 use Sprint\Migration\Module;
 
+ini_set('zend.exception_ignore_args', 0);
+
 require_once($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_admin_before.php");
 
 /** @global $APPLICATION CMain */
@@ -31,11 +33,18 @@ try {
     }
 
     require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/epilog_admin.php");
-} catch (Throwable $e) {
+} catch (Throwable $exception) {
     require($_SERVER["DOCUMENT_ROOT"] . "/bitrix/modules/main/include/prolog_admin_after.php");
 
     $sperrors = [];
-    $sperrors[] = $e->getMessage();
+    $sperrors[] = sprintf(
+        "[%s] %s (%s) in %s:%d \n",
+        get_class($exception),
+        $exception->getMessage(),
+        $exception->getCode(),
+        $exception->getFile(),
+        $exception->getLine()
+    );
 
     include __DIR__ . '/includes/errors.php';
     include __DIR__ . '/includes/help.php';
