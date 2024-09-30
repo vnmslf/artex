@@ -1,6 +1,38 @@
-<?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
+<?php
+require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
+use XmlLoader\Import;
+
 \Bitrix\Main\Loader::includeModule('iblock');?>
-<?function kama_create_csv_file($create_data, $file = null, $col_delimiter = ';', $row_delimiter = "\r\n") {
+
+<?php
+$array_xml = [
+	'http://files.gk-artex.ru/artex-autogeely-stock.xml',
+	'https://files.gk-artex.ru/artex-autoexeed-stock.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/4872476734a1869890c0f5342bd17875.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/12a7fefc6a67869501776bf2dfe13877.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/2ad1aef473cd63fb9214a12afdc17383.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/769bf95388dddb0992b2ba7e77d17384.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/6dbbf48bf3790c57c5d977a3b1b17873.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/cd1a9fb384ddee663ddb01d0e4e17382.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/1a51b56e462d68c4c09dbf8c72c16850.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/32bdb72e56a97468bd533e5392e16768.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/a086f2f82a9717c996c58d2e2be18185.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/5d381a601ec0135cde418dc817d16767.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/c2c3a8801396d61babcfb53213c16765.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/5f2687f783c0589fcf49d30d59e16772.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/e7bfe46e22616a159f9b0e3ff2e16847.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/cfa36d01a6a78ce6cb7f9e40a6c16844.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/92ce95d72a6bafeff295156c7be16845.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/73a32a37e8249cadf02db64fbdb16848.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/2a7f55fe442cb0d361d4f8d96ff16846.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/248b8e408f9fdd4cb8f8000170f16766.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/233b71500de40924b5fe68d3f7f16763.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/dd182a02c1ba42942f5163e1a2c16764.xml',
+	'https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/07fd716eb73752b4096128b00cf16849.xml',
+];
+?>
+<?php
+function kama_create_csv_file($create_data, $file = null, $col_delimiter = ';', $row_delimiter = "\r\n") {
 	if(!is_array($create_data)) {
 		return false;
 	}
@@ -41,7 +73,42 @@ function objectToArray ($object) {
 function mb_ucfirst($word, $charset = 'utf-8') {
 	return mb_strtoupper(mb_substr($word, 0, 1, $charset), $charset).mb_substr($word, 1, mb_strlen($word, $charset) - 1, $charset);
 }?>
-<?$solaris_xml = simplexml_load_file('https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/07fd716eb73752b4096128b00cf16849.xml');
+<?php
+$newArr = [];
+$i = 0;
+foreach($array_xml as $key => $file) {
+	$xml[$key] = objectToArray(simplexml_load_file($file));
+	if(!empty($xml[$key]['cars']['car']) && !is_array($xml[$key]['cars']['car'][0])) {
+		$reNew = $xml[$key]['cars']['car'];
+		$xml[$key]['cars']['car'] = [];
+		array_push($xml[$key]['cars']['car'], $reNew);
+	}
+	foreach($xml[$key]['cars']['car'] as $k => $v) {
+		array_push($newArr, $v);
+	}
+}
+//pre($newArr);
+$for_import = [];
+$sections = [];
+foreach($newArr as $key => $value) {
+	if(is_array($value)) { // FAW не от окликается, т.к. внутри всего 1 автомобиль
+		$value = array_change_key_case($value, CASE_UPPER);
+		if (mb_strcasecmp($value['AVAILABILITY'], utf8_strrev('в наличии'))) {
+			$value['STATUS'] = 'В наличии';
+			unset($value['AVAILABILITY']);
+		} elseif ($value['AVAILABILITY'] == 'в пути') {
+			$value['STATUS'] = 'В пути';
+			unset($value['AVAILABILITY']);
+		}
+		$value['WHEEL'] = mb_ucfirst($value['WHEEL']);
+		$value['ENGINE_POWER'] = intval(preg_replace('/[^0-9]+/', '', $value['ENGINE_POWER']), 10);
+		$for_import[$key] = $value;
+		if(!in_array(createCode($value['MARK_ID']), $sections, true)) {
+			array_push($sections, createCode($value['MARK_ID']));
+		}
+	}
+}
+/*$solaris_xml = simplexml_load_file('https://media.cm.expert/stock/export/cmexpert/dealer.site/all/all/07fd716eb73752b4096128b00cf16849.xml');
 $geely_xml = simplexml_load_file('http://files.gk-artex.ru/artex-autogeely-stock.xml');
 $exeed_xml = simplexml_load_file('https://files.gk-artex.ru/artex-autoexeed-stock.xml');
 $solaris = objectToArray($solaris_xml);
@@ -61,7 +128,7 @@ foreach ($array_xml as $key => $value) {
 	$value['ENGINE_POWER'] = intval(preg_replace('/[^0-9]+/', '', $value['ENGINE_POWER']), 10);
 	$for_import[$key] = $value;
 	//pre($value['IMAGES']);
-}
+}*/
 //pre($for_import);
 
 $properties = \Bitrix\Iblock\PropertyTable::getList([
@@ -172,17 +239,28 @@ foreach ($for_import as $key => $value) {
 	}
 	$create_data[$jey] = array_values($create_data[$jey]);
 }
-echo '---';
-//pre($new_images);
-/*foreach ($create_data as $key => $value) {
-	//pre($value);
-	foreach ($new_images as $jey => $image) {
-		$index = array_search($jey, $value);
-		//pre($index);
-	}
-}*/
 $create_data = array_values($create_data);
-pre($create_data);
+$res = \Bitrix\Iblock\SectionTable::getList(array(
+	'order' => array('SORT' => 'ASC'),
+	'select' => array('ID', 'NAME', 'IBLOCK_ID', 'CODE'),
+	'filter' => array('IBLOCK_ID' => \Dao\App::ib('aspro_allcorp3_catalog')->id()),
+	'data_doubling' => false,
+	'cache' => array(
+		'ttl' => 3600,
+		'cache_joins' => true
+	),
+));
+$sectionsExists = $res->fetchAll();
+foreach($sectionsExists as $key => $section) {
+	if(in_array($section['CODE'], $sections)) {
+		$deleteKey = array_search($section['CODE'], $sections);
+		unset($sections[$deleteKey]);
+	}
+}
+$sections = array_values($sections);
+pre($sections); // это готовый список тех разделов 0-го уровня, которые есть в файлах с тачками, но которых нет в инфоблоках - надо создать
+
 kama_create_csv_file($create_data, $_SERVER['DOCUMENT_ROOT'].'/upload/csv_file.csv');
 ?>
-<?require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');?>
+<?php
+require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');?>

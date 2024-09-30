@@ -3,7 +3,8 @@
         "psr-4": {
             "Tools\\": "api/class/Tools/",
             "Dao\\": "api/class/Dao/",
-            "Pictures\\": "api/class/Pictures"
+            "Pictures\\": "api/class/Pictures",
+            "XmlLoader\\": "api/class/XmlLoader"
         }
     },
     "extra": {

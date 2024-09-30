@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitefb7933a0c5df96cf53bd4cd4d4a958b
 {
     public static $prefixLengthsPsr4 = array (
+        'X' => 
+        array (
+            'XmlLoader\\' => 10,
+        ),
         'T' => 
         array (
             'Tools\\' => 6,
@@ -31,6 +35,10 @@ class ComposerStaticInitefb7933a0c5df96cf53bd4cd4d4a958b
     );
 
     public static $prefixDirsPsr4 = array (
+        'XmlLoader\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/api/class/XmlLoader',
+        ),
         'Tools\\' => 
         array (
             0 => __DIR__ . '/../..' . '/api/class/Tools',
