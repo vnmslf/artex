@@ -80,6 +80,14 @@ $arUrlRewrite=array (
     'PATH' => '/company/vacancy/index.php',
     'SORT' => 100,
   ),
+  27 => 
+  array (
+    'CONDITION' => '#^/stocks-and-news/#',
+    'RULE' => '',
+    'ID' => 'bitrix:news',
+    'PATH' => '/stocks-and-news/index.php',
+    'SORT' => 100,
+  ),
   14 => 
   array (
     'CONDITION' => '#^/company/brands/#',
@@ -142,6 +150,14 @@ $arUrlRewrite=array (
     'RULE' => '',
     'ID' => 'bitrix:news',
     'PATH' => '/contacts/index.php',
+    'SORT' => 100,
+  ),
+  26 => 
+  array (
+    'CONDITION' => '#^/new-auto/#',
+    'RULE' => '',
+    'ID' => 'bitrix:catalog',
+    'PATH' => '/new-auto/index.php',
     'SORT' => 100,
   ),
   7 => 

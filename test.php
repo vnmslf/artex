@@ -1,6 +1,7 @@
 <?php
 require($_SERVER['DOCUMENT_ROOT'].'/bitrix/header.php');
 use XmlLoader\Import;
+use Bitrix\Iblock\SectionTable;
 
 \Bitrix\Main\Loader::includeModule('iblock');?>
 
@@ -242,7 +243,7 @@ foreach ($for_import as $key => $value) {
 $create_data = array_values($create_data);
 $res = \Bitrix\Iblock\SectionTable::getList(array(
 	'order' => array('SORT' => 'ASC'),
-	'select' => array('ID', 'NAME', 'IBLOCK_ID', 'CODE'),
+	'select' => array('ID', 'NAME', 'IBLOCK_ID', 'CODE', 'ACTIVE'),
 	'filter' => array('IBLOCK_ID' => \Dao\App::ib('aspro_allcorp3_catalog')->id()),
 	'data_doubling' => false,
 	'cache' => array(
@@ -251,6 +252,7 @@ $res = \Bitrix\Iblock\SectionTable::getList(array(
 	),
 ));
 $sectionsExists = $res->fetchAll();
+$newSections = [];
 foreach($sectionsExists as $key => $section) {
 	if(in_array($section['CODE'], $sections)) {
 		$deleteKey = array_search($section['CODE'], $sections);
@@ -258,9 +260,54 @@ foreach($sectionsExists as $key => $section) {
 	}
 }
 $sections = array_values($sections);
+$newSections = array_values($newSections);
 pre($sections); // это готовый список тех разделов 0-го уровня, которые есть в файлах с тачками, но которых нет в инфоблоках - надо создать
+pre($newSections);
 
-kama_create_csv_file($create_data, $_SERVER['DOCUMENT_ROOT'].'/upload/csv_file.csv');
+foreach ($newSections as $key => $newSection) {
+//	$arNewSection = array(
+//		'IBLOCK_ID' => \Dao\App::ib('aspro_allcorp3_catalog')->id(),
+//		'IBLOCK_SECTION_ID' => false,
+//		'NAME' => $newSection['NAME'],
+//		'CODE' => $newSection['CODE'],
+//	);
+//	$bs = new CIBlockSection();
+//	$newSectionID = $bs->Add($arNewSection);
+
+	$result = SectionTable::add([
+		'IBLOCK_ID' => \Dao\App::ib('aspro_allcorp3_catalog')->id(),
+		'IBLOCK_SECTION_ID' => false,
+		'NAME' => $newSection['NAME'],
+		'CODE' => $newSection['CODE'],
+	]);
+
+	if (!$result->isSuccess()) {
+		// Обработка ошибки при создании подраздела
+		// например, можно записать ошибку в лог или вывести сообщение об ошибке
+		$errors = $result->getErrorMessages();
+		echo "Ошибка при создании подраздела: " . implode(", ", $errors);
+	}
+}
+
+//kama_create_csv_file($create_data, $_SERVER['DOCUMENT_ROOT'].'/upload/csv_file.csv');
 ?>
+<?php
+//$bs = new CIBlockSection;
+//$arFields = Array(
+//	'ACTIVE' => 'Y',
+//	'IBLOCK_SECTION_ID' => '1',
+//	'IBLOCK_ID' => \Dao\App::ib('aspro_allcorp3_catalog')->id(),
+//	'NAME' => '$NAME',
+//	'SORT' => '555',
+//);
+//if($ID > 0) {
+//	$res = $bs->Update($ID, $arFields);
+//} else {
+//	$ID = $bs->Add($arFields);
+//	$res = ($ID>0);
+//}
+//if(!$res)
+//	echo $bs->LAST_ERROR;
+//?>
 <?php
 require($_SERVER['DOCUMENT_ROOT'].'/bitrix/footer.php');?>

@@ -1,43 +1,36 @@
 <?
 $aMenuLinks = Array(
 	Array(
-		'Exeed',
-		'/auto/exeed/',
+		'Новые автомобили',
+		'/new-auto/',
 		Array(),
 		Array(),
 		''
 	),
 	Array(
-		'Geely',
-		'/auto/geely/',
+		'Автомобили с пробегом',
+		'/auto-s-probegom/',
 		Array(),
 		Array(),
 		''
 	),
 	Array(
-		'Solaris',
-		'/auto/solaris/',
+		'Акции и новости',
+		'/stocks-and-news/',
 		Array(),
 		Array(),
 		''
 	),
 	Array(
-		'Новости',
-		'/news/',
-		Array(),
-		Array(),
-		''
-	),
-	Array(
-		'Статьи',
-		'/articles/',
+		'Услуги',
+		'/services/',
 		Array(),
 		Array(),
 		''
 	),
 	Array(
 		'О компании',
-		'/company/',
+		'/about-company/',
 		Array(),
 		Array(),
 		''

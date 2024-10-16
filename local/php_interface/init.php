@@ -1,6 +1,12 @@
 <?
 include_once ($_SERVER['DOCUMENT_ROOT'].'/local/vendor/autoload.php');
 
+use Bitrix\Main\EventManager;
+use Bitrix\Main\Event;
+use Bitrix\Main\Loader;
+use Bitrix\Iblock\IblockTable;
+use Bitrix\Iblock\SectionTable;
+
 AddEventHandler('main', 'OnEndBufferContent', 'deleteKernelJs');
 function pre($data, $flag = true) {
 	if($flag) {
