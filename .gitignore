@@ -43,7 +43,6 @@ sitemap*.xml
 upload
 !/bitrix
 /bitrix/*
-!/bitrix/templates
 .composer/
 .cache/
 .sass-cache
