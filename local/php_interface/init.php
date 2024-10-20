@@ -546,7 +546,7 @@ function changeBracketSvg($inputText, $svg, $icon = '{{icon}}') {
 	$newText = '';
 	$replaceIcon = '
 	<div class="icons">
-		<div class="icon">
+		<div class="icon qwerr">
 			<img src="'.$svg['SRC'].'" alt="" />
 			<span></span>
 		</div>

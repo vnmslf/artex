@@ -184,8 +184,10 @@ if ($arParams['ABSOLUTE_IMAGE']) {
 				$itemTopPartClassList .= ' flexbox--direction-column-reverse';
 			}
 			?>
-
 			<div class="news-list__wrapper <?=$itemWrapperClasses;?> <?=$itemWrapperClassesExt;?> color-theme-parent-all">
+				<?if($arItem['PROPERTIES']['IS_ACTION']['VALUE_XML_ID'] == 'yes') {?>
+                    <div class="stock">Акция</div>
+				<?}?>
 				<div class="news-list__item <?=$itemClasses?> <?=$itemClassesExt?> <?=($arItem['DISPLAY_PROPERTIES']['SALE_NUMBER']['VALUE'] || $bDiscountCounter ? 'news-list__item--with-discount' : '');?>" id="<?=$this->GetEditAreaId($arItem['ID']);?>">
 					<?if($imageSrc && $arParams['SHOW_IMAGE']):?>
 						<div class="news-list__item-image-wrapper <?='news-list__item-image-wrapper--'.$imagePosition?>">
