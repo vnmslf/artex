@@ -102,7 +102,7 @@ $APPLICATION->SetTitle("Услуги");
 		"DOCS_PROP_CODE" => "DOCUMENTS",
 		"ELEMENT_TYPE_VIEW" => "FROM_MODULE",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
-		"IBLOCK_ID" => "42",
+		"IBLOCK_ID" => \Dao\App::ib('aspro_allcorp3_services')->id(),
 		"IBLOCK_TYPE" => "aspro_allcorp3_content",
 		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
 		"INCLUDE_SUBSECTIONS" => "Y",
@@ -249,7 +249,7 @@ $APPLICATION->SetTitle("Услуги");
 		"SEF_URL_TEMPLATES" => array(
 			"news" => "",
 			"section" => "#SECTION_CODE_PATH#/",
-			"detail" => "#SECTION_CODE_PATH#/#ELEMENT_CODE#/",
+			"detail" => "#ELEMENT_CODE#/",
 		)
 	),
 	false
